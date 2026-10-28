@@ -1,0 +1,28 @@
+{
+  "id": "retail-shop",
+  "name": "Retail shop",
+  "version": "1.0.0",
+  "description": "Keep shelves stocked and customers coming back.",
+  "uses": [
+    "phone-agent",
+    "order-taker",
+    "stock-monitor",
+    "ledger",
+    "customer-service",
+    "daily-report"
+  ],
+  "schemas": {
+    "catalog": "RetailProductCatalog"
+  },
+  "rules": [
+    "Use exact SKU prices from the catalog.",
+    "A sale reserves available SKU stock only after human approval.",
+    "Returns and refunds require owner attention.",
+    "Stock alerts notify the owner; they never purchase inventory automatically."
+  ],
+  "built_by": {
+    "ai_expert": "Gluons reference implementation",
+    "sector_expert": "Demo retail-operations persona; expert validation pending"
+  },
+  "color": "blue"
+}

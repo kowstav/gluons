@@ -1,0 +1,36 @@
+{
+  "id": "ledger",
+  "version": "1.0.0",
+  "layer": "core",
+  "name": "Bookkeeping ledger",
+  "description": "Propose structured operating expense entries.",
+  "triggers": ["receipt", "manual"],
+  "inputs": {
+    "business": "BusinessSetup",
+    "request": "TaskInput"
+  },
+  "outputs": {
+    "proposal": "ProposedAction"
+  },
+  "decisions": [
+    {
+      "id": "needs_human",
+      "engine": "jev",
+      "type": "yes_no",
+      "question": "Is this request unclear, unusual, sensitive or high-value?"
+    }
+  ],
+  "actions": [
+    {
+      "id": "ledger_entry",
+      "risk": "medium",
+      "requires_approval": true
+    }
+  ],
+  "models": {
+    "default": "cheap",
+    "escalate_to": "frontier"
+  },
+  "human_minutes_per_task": 5,
+  "tests": "tests/handler.test.ts"
+}

@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@gluons/runtime": ["packages/runtime/src/index.ts"],
+      "@gluons/runtime/client": ["packages/runtime/src/client.ts"],
+      "@/*": ["apps/dashboard/src/*"]
+    }
+  },
+  "include": [
+    "apps/dashboard/**/*.ts",
+    "apps/dashboard/**/*.tsx",
+    "packages/**/*.ts",
+    "scripts/**/*.ts",
+    "tests/**/*.ts",
+    "playwright.config.ts"
+  ],
+  "exclude": ["node_modules", "apps/dashboard/.next"]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "gluons",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/runtime"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @gluons/dashboard",
+    "build": "npm run build --workspace @gluons/dashboard",
+    "start": "npm run start --workspace @gluons/dashboard",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test packages/runtime/tests/*.test.ts packages/components/*/tests/*.test.ts",
+    "skills:export": "tsx scripts/export-skills.ts",
+    "check": "npm run typecheck && npm test && npm run build && npm run test:http",
+    "test:e2e": "playwright test",
+    "test:http": "node scripts/verify-http.mjs",
+    "format": "prettier --write apps/dashboard/src packages scripts tests"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.13",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "prettier": "^3.9.10",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

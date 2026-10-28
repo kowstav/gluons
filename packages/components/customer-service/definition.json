@@ -1,0 +1,36 @@
+{
+  "id": "customer-service",
+  "version": "1.0.0",
+  "layer": "core",
+  "name": "Customer service",
+  "description": "Draft customer replies grounded in business setup.",
+  "triggers": ["whatsapp_message", "phone_call", "manual"],
+  "inputs": {
+    "business": "BusinessSetup",
+    "request": "TaskInput"
+  },
+  "outputs": {
+    "proposal": "ProposedAction"
+  },
+  "decisions": [
+    {
+      "id": "needs_human",
+      "engine": "jev",
+      "type": "yes_no",
+      "question": "Is this request unclear, unusual, sensitive or high-value?"
+    }
+  ],
+  "actions": [
+    {
+      "id": "send_reply",
+      "risk": "low",
+      "requires_approval": true
+    }
+  ],
+  "models": {
+    "default": "cheap",
+    "escalate_to": "frontier"
+  },
+  "human_minutes_per_task": 5,
+  "tests": "tests/handler.test.ts"
+}

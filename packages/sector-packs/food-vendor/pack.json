@@ -1,0 +1,29 @@
+{
+  "id": "food-vendor",
+  "name": "Food vendor",
+  "version": "1.0.0",
+  "description": "From the morning prep to the evening rush.",
+  "uses": [
+    "phone-agent",
+    "order-taker",
+    "stock-monitor",
+    "ledger",
+    "customer-service",
+    "daily-report"
+  ],
+  "schemas": {
+    "catalog": "MenuWithIngredients"
+  },
+  "rules": [
+    "Use configured menu prices; never invent items or prices.",
+    "Combos are only valid when explicitly listed in the menu.",
+    "Decrement ingredient quantities only after approval in live mode.",
+    "Peak hours: 12:00–14:00 and 18:00–21:00; prioritize stock alerts.",
+    "Allergy questions, refunds and unusual orders require owner attention."
+  ],
+  "built_by": {
+    "ai_expert": "Gluons reference implementation",
+    "sector_expert": "Demo food-operations persona; expert validation pending"
+  },
+  "color": "orange"
+}

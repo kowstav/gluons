@@ -1,0 +1,41 @@
+{
+  "id": "phone-agent",
+  "version": "1.0.0",
+  "layer": "core",
+  "name": "Phone agent",
+  "description": "Turn call transcripts into a staged order or reply.",
+  "triggers": ["phone_call", "manual"],
+  "inputs": {
+    "business": "BusinessSetup",
+    "request": "TaskInput"
+  },
+  "outputs": {
+    "proposal": "ProposedAction"
+  },
+  "decisions": [
+    {
+      "id": "needs_human",
+      "engine": "jev",
+      "type": "yes_no",
+      "question": "Is this request unclear, unusual, sensitive or high-value?"
+    }
+  ],
+  "actions": [
+    {
+      "id": "create_order",
+      "risk": "medium",
+      "requires_approval": true
+    },
+    {
+      "id": "send_reply",
+      "risk": "low",
+      "requires_approval": true
+    }
+  ],
+  "models": {
+    "default": "cheap",
+    "escalate_to": "frontier"
+  },
+  "human_minutes_per_task": 6,
+  "tests": "tests/handler.test.ts"
+}
