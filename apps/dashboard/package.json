@@ -1,0 +1,13 @@
+{
+  "name": "@gluons/dashboard", "version": "0.1.0", "private": true,
+  "scripts": { "dev": "next dev --hostname 127.0.0.1", "build": "next build", "start": "next start --hostname 127.0.0.1" },
+  "dependencies": {
+    "@gluons/runtime": "*", "next": "^16.0.0", "react": "^19.2.0", "react-dom": "^19.2.0",
+    "@supabase/supabase-js": "^2.76.0", "@supabase/ssr": "^0.7.0",
+    "ai": "latest", "zod": "^4.1.0", "lucide-react": "^0.468.0",
+    "recharts": "^3.3.0", "framer-motion": "^12.23.0",
+    "class-variance-authority": "^0.7.1", "clsx": "^2.1.1", "tailwind-merge": "^3.3.0",
+    "@radix-ui/react-slot": "^1.2.3", "jspdf": "^3.0.3", "twilio": "^5.10.0"
+  },
+  "devDependencies": { "tailwindcss": "^4.1.0", "@tailwindcss/postcss": "^4.1.0" }
+}
