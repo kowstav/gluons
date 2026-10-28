@@ -1,0 +1,7 @@
+{
+  "name": "Gluons prototype",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+  "postCreateCommand": "npm ci",
+  "forwardPorts": [3000],
+  "portsAttributes": { "3000": { "label": "Gluons dashboard", "onAutoForward": "openPreview" } }
+}
