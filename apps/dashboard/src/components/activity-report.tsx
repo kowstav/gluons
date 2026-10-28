@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { savings, type Task } from '@gluons/runtime/client';
 import { api, browserSupabase, type PanelProps } from '@/lib/client';
+import { serviceCopy } from '@/lib/service-copy';
 import { Badge, Button, Card, cost, Dialog, money, relative } from './ui';
 export function Activity({ data, business }: PanelProps) {
   const [query, setQuery] = useState(''),
@@ -34,33 +35,31 @@ export function Activity({ data, business }: PanelProps) {
     <>
       <div className="page-heading">
         <div>
-          <div className="eyebrow">EFFICIENCY YOU CAN SEE</div>
+          <div className="eyebrow">A CLEAR RECORD OF YOUR WORK</div>
           <h1>
-            Every task has a story<span className="orange-text">.</span>
+            See how your work was handled<span className="orange-text">.</span>
           </h1>
-          <p>
-            From Jev’s decision to the final model. Every route, check and cost, out in the open.
-          </p>
+          <p>Review each request, its checks and the estimated AI usage cost in one place.</p>
         </div>
         <Badge tone="green">
-          <Zap size={13} /> EfficientAI
+          <Zap size={13} /> Usage details
         </Badge>
       </div>
       <div className="activity-process">
         <span>
-          <i>1</i> Task arrives
+          <i>1</i> Request received
         </span>
         <ArrowRight size={16} />
         <span>
-          <i>2</i> Jev decides
+          <i>2</i> Request assessed
         </span>
         <ArrowRight size={16} />
         <span>
-          <i>3</i> Right model
+          <i>3</i> Response prepared
         </span>
         <ArrowRight size={16} />
         <span>
-          <i>4</i> Output checked
+          <i>4</i> Details checked
         </span>
         <ArrowRight size={16} />
         <span>
@@ -69,11 +68,11 @@ export function Activity({ data, business }: PanelProps) {
       </div>
       <div className="activity-stats">
         <Card>
-          <small>Tasks routed</small>
+          <small>Requests handled</small>
           <strong>{all.length}</strong>
         </Card>
         <Card>
-          <small>Output escalations</small>
+          <small>Extra checks</small>
           <strong>{all.filter((t) => t.escalated).length}</strong>
         </Card>
         <Card>
@@ -96,18 +95,18 @@ export function Activity({ data, business }: PanelProps) {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search tasks, models or components"
+            placeholder="Search requests or services"
             aria-label="Search AI tasks"
           />
         </label>
         <label className="date-select">
           <span className="sr-only">Filter by model tier</span>
           <select value={tier} onChange={(e) => setTier(e.target.value)}>
-            <option value="all">All model tiers</option>
-            <option value="cheap">Everyday / cheap</option>
-            <option value="medium">Balanced / medium</option>
-            <option value="frontier">Advanced / frontier</option>
-            <option value="escalated">Escalated outputs</option>
+            <option value="all">All requests</option>
+            <option value="cheap">Routine requests</option>
+            <option value="medium">Additional review</option>
+            <option value="frontier">Complex requests</option>
+            <option value="escalated">Extra checks</option>
           </select>
         </label>
       </div>
@@ -115,9 +114,9 @@ export function Activity({ data, business }: PanelProps) {
         <table className="data-table">
           <thead>
             <tr>
-              <th>Task / component</th>
-              <th>Decision</th>
-              <th>Model selected</th>
+              <th>Request / service</th>
+              <th>Assessment</th>
+              <th>AI used</th>
               <th>Est. cost</th>
               <th>Output</th>
               <th />
@@ -138,7 +137,7 @@ export function Activity({ data, business }: PanelProps) {
                 <td>
                   <strong>{t.input}</strong>
                   <small>
-                    {t.componentId} · {relative(t.createdAt)}
+                    {serviceCopy[t.componentId].name} · {relative(t.createdAt)}
                   </small>
                 </td>
                 <td>
@@ -189,13 +188,14 @@ export function Activity({ data, business }: PanelProps) {
         )}
       </Card>
       <p className="activity-log-note">
-        Showing {Math.min(tasks.length, 80)} of {tasks.length} matching tasks. Includes Jev and all
-        completed model attempts. Prices are estimates using the {data.pricingDate} snapshot.
+        Showing {Math.min(tasks.length, 80)} of {tasks.length} matching tasks. Includes request
+        checks and all completed AI attempts. Usage costs are estimated using rates from{' '}
+        {data.pricingDate}.
       </p>
       <Dialog
         open={!!selected}
         onClose={() => setSelected(null)}
-        title="The route behind the task"
+        title="How this request was handled"
         wide
       >
         {selected && (
@@ -322,7 +322,7 @@ export function Report({ data, business, toast, navigate }: PanelProps) {
         `Staff baseline: ${money(business.baseline.monthlyStaffCost)} / ${business.baseline.monthlyStaffHours} hours per month = ${money(stats.hourlyRate)} per hour. Owner review: ${business.baseline.reviewMinutesPerTask} minutes per reviewed proposal.`,
       );
       line(
-        'Net time returned = max(0, completed tasks x component time estimate - owner review time). Trial approvals represent potential savings; executed local operations are tracked separately. Pending and rejected proposals earn no gross time savings. All routed tasks count toward AI cost.',
+        'Net time returned = max(0, completed tasks x service time estimate - owner review time). Trial approvals represent potential savings; executed local operations are tracked separately. Pending and rejected proposals earn no gross time savings. All processed tasks count toward AI cost.',
       );
       line(
         `Model pricing snapshot: ${data.pricingDate}. Costs use token usage and configured rates. Demo token usage is synthetic. Twilio, Vapi, hosting, taxes and other vendor fees are excluded.`,
@@ -331,11 +331,11 @@ export function Report({ data, business, toast, navigate }: PanelProps) {
         pdf.addPage();
         y = 22;
       }
-      line('Results by component', 15);
+      line('Results by service', 15);
       data.components.forEach((c) => {
         const ids = new Set(businessTasks.filter((t) => t.componentId === c.id).map((t) => t.id));
         line(
-          `${c.name}: ${ids.size} tasks; ${c.human_minutes_per_task} estimated human minutes per completed task.`,
+          `${serviceCopy[c.id].name}: ${ids.size} tasks; ${c.human_minutes_per_task} estimated human minutes per completed task.`,
         );
       });
       line(
@@ -399,7 +399,7 @@ export function Report({ data, business, toast, navigate }: PanelProps) {
           </div>
           <p>{money(stats.grossHours * stats.hourlyRate)} equivalent staff time</p>
           <div className="comparison-bar baseline" />
-          <small>{stats.completed} completed tasks × component time estimates</small>
+          <small>{stats.completed} completed tasks × time estimates for each service</small>
         </Card>
         <div className="comparison-arrow">
           <ArrowRight size={23} />

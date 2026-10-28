@@ -31,9 +31,9 @@ You can also open this repository in GitHub Codespaces using the included dev co
 
 - **Savings overview:** estimated net staff hours, equivalent time value, AI cost, approval rate, date filtering, and daily chart.
 - **Approval queue:** automatic refresh, search, approve, reject, edit notes, change order quantity with trusted repricing, change ledger amount, and an audit record of original content and reviewer identity.
-- **EfficientAI log:** typed task difficulty and special-attention decisions, cheap/medium/frontier selection, schema and business-fact checks, bounded escalation, all model attempts and estimated token costs. Demo decisions are labeled as simulations of Jev.
-- **Integration library:** six versioned core components and food-vendor/retail packs. “Used by N businesses” comes from saved integrations.
-- **Integration builder:** sector selection, component toggles, business details, catalog, stock thresholds, per-item ingredient/SKU consumption mapping, baseline costs, review, and trial deployment. Newly created businesses start with an empty task history.
+- **Activity & usage:** a request history with checks, extra reviews, AI used and estimated usage costs. Detailed records retain model attempts for transparency; demo decisions are labeled as simulations.
+- **Services:** owner-facing descriptions of calls, orders, replies, stock alerts, expense records and daily summaries, with enabled status for the selected business. Internal component versions and cross-business reuse data stay in the implementation rather than the customer screens.
+- **Business setup:** business-type selection, service choices, business details, catalog, stock thresholds, per-item ingredient/SKU consumption mapping, baseline costs, review, and trial start. Newly created businesses start with an empty task history.
 - **Trial report:** before/after comparison, review-time allowance, separate trial/live outcome counts, transparent assumptions and a downloadable multipage PDF.
 - **Landing page:** working demo link, captioned demo walkthrough and a durable free-trial request form. Requests are saved; the prototype does not send email or schedule appointments.
 - **Agent Skills export:** six `SKILL.md` folders with component definitions and prompts.
@@ -44,12 +44,12 @@ Live service credentials, a purchased telephone number, provider account setup, 
 ## Demo walkthrough
 
 1. Open the overview and click **Run demo task**.
-2. Leave **Order taker** selected; enable the failed-check escalation example.
-3. Route the task. The invalid cheap output escalates to a stronger model.
+2. Leave **Order handling** selected. The optional extra-check example demonstrates output validation.
+3. Click **Prepare for review**. If you selected the extra-check example, the first invalid output is checked again using a stronger model.
 4. Review the staged order. Edit its quantity or pickup note, then approve it.
 5. In trial mode, it becomes **simulated**: no order, stock deduction, message or expense operation is performed.
-6. Open **EfficientAI log** and inspect both model attempts.
-7. Build a second business using the same library. Reuse counts update from one business to two.
+6. Open **Activity & usage** to review how the request was handled and its estimated AI usage.
+7. Explore **Services** and **Business setup** to choose the work a business needs help with.
 8. Export its **Trial report** as a PDF.
 
 For local live-operation testing, switch a business to Live in Settings, stage a new order, and approve it. Gluons appends a local operation record and deducts the configured ingredient quantities exactly once. This is Gluons' internal operations ledger; no POS, supplier ordering, bank or accounting vendor is connected. Real WhatsApp delivery additionally requires `LIVE_ACTIONS_ENABLED=true` and Twilio credentials.

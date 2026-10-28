@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import type { ProposedAction } from '@gluons/runtime';
 import { api, type PanelProps } from '@/lib/client';
+import { serviceCopy } from '@/lib/service-copy';
 import { Badge, Button, Card, cost, Dialog, relative } from './ui';
 export function Approvals({ data, business, refresh, toast, navigate }: PanelProps) {
   const [filter, setFilter] = useState('pending'),
@@ -132,8 +133,8 @@ export function Approvals({ data, business, refresh, toast, navigate }: PanelPro
                   <div>
                     <h3>{action.summary}</h3>
                     <div className="action-meta">
-                      {definition?.name} <i>·</i> {relative(action.createdAt)} <i>·</i>{' '}
-                      {task?.trigger.replaceAll('_', ' ')}
+                      {definition ? serviceCopy[definition.id].name : 'Business task'} <i>·</i>{' '}
+                      {relative(action.createdAt)} <i>·</i> {task?.trigger.replaceAll('_', ' ')}
                     </div>
                   </div>
                 </div>

@@ -3,25 +3,19 @@ import { useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   Check,
   CheckCheck,
-  ChevronRight,
-  Code2,
   FileText,
   Layers3,
   Package,
   Phone,
   Plus,
-  Search,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
-  Store,
   Trash2,
   Utensils,
   Workflow,
-  Zap,
 } from 'lucide-react';
 import {
   type CatalogItem,
@@ -30,7 +24,8 @@ import {
   type StockItem,
 } from '@gluons/runtime/client';
 import { api, type PanelProps } from '@/lib/client';
-import { Badge, Button, Card, Dialog, money } from './ui';
+import { businessTypeCopy, serviceCopy } from '@/lib/service-copy';
+import { Badge, Button, Card, money } from './ui';
 const icons: Record<string, typeof Phone> = {
   'phone-agent': Phone,
   'order-taker': ShoppingBag,
@@ -39,221 +34,6 @@ const icons: Record<string, typeof Phone> = {
   'customer-service': Sparkles,
   'daily-report': Layers3,
 };
-export function Library({ data, business, navigate }: PanelProps) {
-  const [filter, setFilter] = useState('all'),
-    [query, setQuery] = useState(''),
-    [selected, setSelected] = useState('');
-  const detail = data.components.find((c) => c.id === selected);
-  const counts = (id: string, sector = false) =>
-    data.state.integrations.filter((i) =>
-      sector ? i.sectorPackId === id : i.componentIds.includes(id as ComponentId),
-    ).length;
-  return (
-    <>
-      <div className="page-heading">
-        <div>
-          <div className="eyebrow">GOOD FOUNDATIONS GO FURTHER</div>
-          <h1>
-            Built once. Useful everywhere<span className="orange-text">.</span>
-          </h1>
-          <p>Shared components. Expert-shaped sector packs. Your business’s own setup.</p>
-        </div>
-        <Button onClick={() => navigate('builder')}>
-          <Plus size={16} /> Build an integration
-        </Button>
-      </div>
-      <div className="library-equation">
-        <div>
-          <span className="equation-icon">
-            <Layers3 />
-          </span>
-          <strong>Core components</strong>
-          <small>Engineered once, shared by all</small>
-        </div>
-        <b>+</b>
-        <div>
-          <span className="equation-icon orange">
-            <Utensils />
-          </span>
-          <strong>Sector expertise</strong>
-          <small>Industry rules, ready to reuse</small>
-        </div>
-        <b>+</b>
-        <div>
-          <span className="equation-icon green">
-            <Store />
-          </span>
-          <strong>Business setup</strong>
-          <small>Your catalog, hours and costs</small>
-        </div>
-        <b>=</b>
-        <div className="equation-result">
-          <strong>Your integration</strong>
-          <small>Built around your day</small>
-        </div>
-      </div>
-      <div className="section-toolbar">
-        <div className="tabs">
-          {['all', 'components', 'packs'].map((f) => (
-            <button key={f} className={filter === f ? 'selected' : ''} onClick={() => setFilter(f)}>
-              {f === 'all' ? 'Everything' : f === 'components' ? 'Core components' : 'Sector packs'}
-            </button>
-          ))}
-        </div>
-        <label className="search-box">
-          <Search size={16} />
-          <input
-            placeholder="Find a building block"
-            aria-label="Search integration library"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </label>
-      </div>
-      {filter !== 'packs' && (
-        <>
-          <div className="section-label">
-            <h2>Core components</h2>
-            <span>Engineered once. Reused in every sector.</span>
-          </div>
-          <div className="library-grid">
-            {data.components
-              .filter((c) =>
-                `${c.name} ${c.description}`.toLowerCase().includes(query.toLowerCase()),
-              )
-              .map((c) => {
-                const Icon = icons[c.id];
-                const enabled = data.state.integrations
-                  .find((i) => i.businessId === business.id)
-                  ?.componentIds.includes(c.id);
-                return (
-                  <Card key={c.id} className="component-card">
-                    <div className="card-heading">
-                      <span className={`component-icon component-${c.id}`}>
-                        <Icon size={23} />
-                      </span>
-                      <Badge>v{c.version}</Badge>
-                    </div>
-                    <h3>{c.name}</h3>
-                    <p>{c.description}</p>
-                    <div className="component-triggers">
-                      {c.triggers
-                        .filter((t) => t !== 'manual')
-                        .slice(0, 2)
-                        .map((t) => (
-                          <span key={t}>{t.replaceAll('_', ' ')}</span>
-                        ))}
-                    </div>
-                    <div className="component-card-footer">
-                      <span>
-                        <Store size={13} /> Used by <strong>{counts(c.id)}</strong>{' '}
-                        {counts(c.id) === 1 ? 'business' : 'businesses'}
-                      </span>
-                      <button
-                        aria-label={`View ${c.name} definition`}
-                        onClick={() => setSelected(c.id)}
-                      >
-                        <ArrowUpRight size={17} />
-                      </button>
-                    </div>
-                    {enabled && (
-                      <div className="component-active">
-                        <Check size={12} /> In your integration
-                      </div>
-                    )}
-                  </Card>
-                );
-              })}
-          </div>
-        </>
-      )}
-      {filter !== 'components' && (
-        <>
-          <div className="section-label">
-            <h2>Sector packs</h2>
-            <span>Expert once. Easy setup after.</span>
-          </div>
-          <div className="sector-grid">
-            {data.sectorPacks
-              .filter((p) =>
-                `${p.name} ${p.description}`.toLowerCase().includes(query.toLowerCase()),
-              )
-              .map((pack) => (
-                <Card key={pack.id} className={`sector-card sector-${pack.color}`}>
-                  <div className="sector-card-heading">
-                    <span className="sector-illustration">
-                      {pack.id === 'food-vendor' ? (
-                        <Utensils size={34} />
-                      ) : (
-                        <ShoppingBag size={34} />
-                      )}
-                    </span>
-                    <div>
-                      <Badge>Sector pack · v{pack.version}</Badge>
-                      <h3>{pack.name}</h3>
-                      <p>{pack.description}</p>
-                    </div>
-                  </div>
-                  <div className="sector-component-list">
-                    {pack.uses.map((id) => (
-                      <span key={id}>
-                        <Check size={12} />
-                        {data.components.find((c) => c.id === id)?.name}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="expert-note">
-                    <ShieldCheck size={14} /> Reference pack · sector expert validation pending
-                  </p>
-                  <div className="sector-footer">
-                    <span>
-                      Used by <strong>{counts(pack.id, true)}</strong>{' '}
-                      {counts(pack.id, true) === 1 ? 'business' : 'businesses'}
-                    </span>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => navigate('builder', pack.id)}
-                    >
-                      Use this foundation <ArrowRight size={14} />
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-          </div>
-        </>
-      )}
-      <Dialog
-        open={!!detail}
-        onClose={() => setSelected('')}
-        title={detail?.name ?? 'Component'}
-        wide
-      >
-        {detail && (
-          <>
-            <p className="muted">The portable definition behind this building block.</p>
-            <pre className="definition-code">{JSON.stringify(detail, null, 2)}</pre>
-            <div className="callout">
-              <Code2 size={17} />
-              <span>
-                Agent Skills export is included in the repository at{' '}
-                <code>skills/{detail.id}/SKILL.md</code>.
-              </span>
-            </div>
-            <a
-              className="button button-outline"
-              href={`https://github.com/kowstav/gluons/tree/main/packages/components/${detail.id}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Explore source & tests <ArrowUpRight size={15} />
-            </a>
-          </>
-        )}
-      </Dialog>
-    </>
-  );
-}
 export function Builder({
   data,
   refresh,
@@ -307,7 +87,7 @@ export function Builder({
         stock: stock.filter((s) => s.name.trim()),
       });
       await refresh();
-      toast(`${name} is ready. ${selected.length} components reused, with trial mode on.`);
+      toast(`${name} is ready with ${selected.length} services in trial mode.`);
       onCreated(result.business.id);
     } catch (e) {
       setError((e as Error).message);
@@ -319,18 +99,20 @@ export function Builder({
     <>
       <div className="page-heading">
         <div>
-          <div className="eyebrow">EXPERT ONCE. EVERY BUSINESS AFTER.</div>
+          <div className="eyebrow">SET UP AROUND YOUR BUSINESS</div>
           <h1>
-            A foundation, made yours<span className="orange-text">.</span>
+            Tell us about your business<span className="orange-text">.</span>
           </h1>
-          <p>Go from a ready-made sector pack to a working business integration.</p>
+          <p>
+            Choose the tasks you want help with, then add the details Gluons needs to prepare them.
+          </p>
         </div>
         <Badge tone="green">
           <ShieldCheck size={13} /> Starts safely in trial mode
         </Badge>
       </div>
       <div className="builder-steps">
-        {['Choose a foundation', 'Make it yours', 'Review & deploy'].map((label, i) => (
+        {['Choose services', 'Business details', 'Review & start'].map((label, i) => (
           <div key={label} className={step >= i + 1 ? 'current' : ''}>
             <span>{step > i + 1 ? <Check size={15} /> : i + 1}</span>
             <strong>{label}</strong>
@@ -350,7 +132,7 @@ export function Builder({
             <>
               <div className="section-label">
                 <h2>What kind of business?</h2>
-                <span>Sector rules are already built in.</span>
+                <span>Choose the closest match for your work.</span>
               </div>
               <div className="sector-select-grid">
                 {data.sectorPacks.map((p) => (
@@ -363,9 +145,9 @@ export function Builder({
                     <span className="sector-illustration">
                       {p.id === 'food-vendor' ? <Utensils /> : <ShoppingBag />}
                     </span>
-                    <h3>{p.name}</h3>
-                    <p>{p.description}</p>
-                    <Badge>{p.uses.length} reusable components</Badge>
+                    <h3>{businessTypeCopy[p.id].name}</h3>
+                    <p>{businessTypeCopy[p.id].description}</p>
+                    <Badge>{p.uses.length} services available</Badge>
                     {packId === p.id && (
                       <span className="choice-check">
                         <Check size={15} />
@@ -375,7 +157,7 @@ export function Builder({
                 ))}
               </div>
               <div className="section-label">
-                <h2>Choose your building blocks</h2>
+                <h2>What would you like help with?</h2>
                 <span>Switch on only what this business needs.</span>
               </div>
               <div className="component-toggle-grid">
@@ -389,8 +171,8 @@ export function Builder({
                     >
                       <Icon size={20} />
                       <span>
-                        <strong>{c.name}</strong>
-                        <small>{c.description}</small>
+                        <strong>{serviceCopy[c.id].name}</strong>
+                        <small>{serviceCopy[c.id].description}</small>
                       </span>
                       <input
                         type="checkbox"
@@ -682,9 +464,9 @@ export function Builder({
               <span className="deploy-symbol">
                 <Workflow size={34} />
               </span>
-              <Badge tone="green">Ready to bring it together</Badge>
+              <Badge tone="green">Ready for your review</Badge>
               <h2>{name}</h2>
-              <p>{pack.name} pack + your setup</p>
+              <p>{businessTypeCopy[pack.id].name} · Trial setup</p>
               <div className="deploy-facts">
                 <span>
                   Owner<strong>{owner}</strong>
@@ -706,15 +488,15 @@ export function Builder({
                 {selected.map((id) => (
                   <span key={id}>
                     <Check size={14} />
-                    {data.components.find((c) => c.id === id)?.name}
+                    {serviceCopy[id].name}
                   </span>
                 ))}
               </div>
               <div className="callout">
                 <ShieldCheck size={19} />
                 <span>
-                  Deploys in trial mode. Every proposed action will wait for approval. Approved
-                  trial actions are recorded without changing business operations.
+                  Starts in trial mode. Every proposed action will wait for approval. Approved trial
+                  actions are recorded without changing business operations.
                 </span>
               </div>
             </Card>
@@ -722,10 +504,8 @@ export function Builder({
         </div>
         <div className="builder-footer">
           <div>
-            <strong>
-              {selected.length} of {selected.length}
-            </strong>{' '}
-            components reused from the library <Badge tone="green">No new code needed</Badge>
+            <strong>{selected.length}</strong> services selected{' '}
+            <Badge tone="green">You approve every action</Badge>
           </div>
           <div className="button-row">
             {step > 1 && (
@@ -739,7 +519,7 @@ export function Builder({
               </Button>
             )}
             <Button type="submit" disabled={selected.length === 0 || busy}>
-              {busy ? 'Deploying…' : step === 3 ? 'Deploy integration' : 'Continue'}
+              {busy ? 'Starting…' : step === 3 ? 'Start trial' : 'Continue'}
               {step === 3 ? <CheckCheck size={16} /> : <ArrowRight size={16} />}
             </Button>
           </div>

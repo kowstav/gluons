@@ -27,15 +27,17 @@ import { api, browserSupabase, type PanelProps, type WorkspaceResponse } from '@
 import { Badge, Button, Dialog, Logo } from './ui';
 import { Overview } from './overview';
 import { Approvals } from './approvals';
-import { Builder, Library } from './library-builder';
+import { Builder } from './library-builder';
+import { Library } from './service-library';
+import { serviceCopy } from '@/lib/service-copy';
 import { Activity, Report, SettingsPanel } from './activity-report';
 
 const navigation = [
   { id: 'overview', name: 'Overview', icon: LayoutDashboard },
   { id: 'approvals', name: 'Approval queue', icon: ListChecks },
-  { id: 'activity', name: 'EfficientAI log', icon: Zap },
-  { id: 'library', name: 'Integration library', icon: BookOpen },
-  { id: 'builder', name: 'Integration builder', icon: Workflow },
+  { id: 'activity', name: 'Activity & usage', icon: Zap },
+  { id: 'library', name: 'Services', icon: BookOpen },
+  { id: 'builder', name: 'Business setup', icon: Workflow },
   { id: 'report', name: 'Trial report', icon: FlaskConical },
 ];
 export default function Dashboard() {
@@ -155,14 +157,9 @@ export default function Dashboard() {
             <Settings size={18} />
             <span>Settings & connections</span>
           </button>
-          <a
-            className="nav-item"
-            href="https://github.com/kowstav/gluons#readme"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className="nav-item" href="/#how-it-works">
             <CircleHelp size={18} />
-            <span>Help & documentation</span>
+            <span>Getting started</span>
             <ArrowUpRight size={14} />
           </a>
           <div className="sidebar-person">
@@ -402,17 +399,17 @@ function TaskDialog({
       title={data.aiMode === 'demo' ? 'Run a demo task' : 'Run an AI task'}
     >
       <p className="muted dialog-intro">
-        Start with an everyday task. See the route, review the proposal, then decide.
+        Try a sample request, review the proposed action, then decide.
       </p>
       <form onSubmit={submit} className="form-stack">
         <label>
-          Component
+          Service
           <select value={id} onChange={(e) => setId(e.target.value as ComponentId)}>
             {components
               .filter((c) => enabled.includes(c.id))
               .map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.name}
+                  {serviceCopy[c.id].name}
                 </option>
               ))}
           </select>
@@ -492,7 +489,7 @@ function TaskDialog({
         {data.aiMode === 'demo' && (
           <label className="checkbox-label">
             <input type="checkbox" checked={force} onChange={(e) => setForce(e.target.checked)} />
-            Demonstrate escalation after a failed output check
+            Show how an extra check is handled (demo)
           </label>
         )}
         <div className="callout">
@@ -510,7 +507,7 @@ function TaskDialog({
         )}
         <Button type="submit" disabled={busy}>
           <Sparkles size={16} />
-          {busy ? 'Routing and checking…' : 'Route & stage task'}
+          {busy ? 'Preparing your request…' : 'Prepare for review'}
         </Button>
       </form>
     </Dialog>

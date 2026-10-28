@@ -1,4 +1,22 @@
 import { test, expect } from '@playwright/test';
+test('public marketing and demo captions keep internal delivery strategy out of customer copy', async ({
+  request,
+}) => {
+  const page = await request.get('/');
+  expect(page.ok()).toBeTruthy();
+  const html = await page.text();
+  const customerText = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ');
+  const internalStrategy =
+    /expert once|sector packs?|reusable (?:components|blocks|AI helpers)|core library|used by \d+ businesses|commission.based|healthy margin|contract AI expert|intern using/i;
+  expect(customerText).not.toMatch(internalStrategy);
+  expect(customerText).not.toMatch(/github\.com|open source/i);
+  const captions = await request.get('/demo.vtt');
+  expect(captions.ok()).toBeTruthy();
+  expect(await captions.text()).not.toMatch(internalStrategy);
+});
 test('full HTTP task -> edit -> approval -> trial -> report state', async ({ request }) => {
   const response = await request.get('/api/workspace');
   expect(response.ok()).toBeTruthy();

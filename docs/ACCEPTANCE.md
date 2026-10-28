@@ -1,5 +1,7 @@
 # Prototype verification record
 
+Customer-copy update (2026-10-29): the public site, metadata, demo captions and owner workspace now describe services, setup support, approval and measurable trial results. The former technical library and builder presentation has been replaced by **Services** and **Business setup**. The previous reuse-count walkthrough below records the original build; it is no longer shown to customers. The demo video and screenshots have been replaced to match the customer-facing experience. An additional HTTP check protects the public-copy boundary.
+
 Verified locally during the 2026-10-28 build. No real business or paid provider data was used.
 
 ## Automated verification

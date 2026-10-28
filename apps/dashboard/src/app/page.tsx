@@ -6,13 +6,13 @@ import {
   ArrowUpRight,
   Check,
   CirclePlay,
+  ClipboardList,
+  Clock3,
   Layers3,
   Phone,
+  MessageSquare,
+  Settings2,
   ShieldCheck,
-  Sparkles,
-  Store,
-  Utensils,
-  Zap,
 } from 'lucide-react';
 import { Button, Dialog, Logo } from '@/components/ui';
 import { api } from '@/lib/client';
@@ -43,11 +43,9 @@ export default function Landing() {
           <Logo />
         </Link>
         <div className="landing-nav-links">
+          <a href="#what-we-help-with">What we help with</a>
           <a href="#how-it-works">How it works</a>
-          <a href="#built-to-reuse">The building blocks</a>
-          <a href="https://github.com/kowstav/gluons" target="_blank" rel="noreferrer">
-            Open source <ArrowUpRight size={13} />
-          </a>
+          <a href="#your-trial">Your trial</a>
         </div>
         <Link className="button button-outline" href="/dashboard">
           Open the demo <ArrowUpRight size={14} />
@@ -60,13 +58,13 @@ export default function Landing() {
               <span className="tiny-spark">✳</span> A LITTLE AI. A LOT MORE TIME.
             </div>
             <h1>
-              Big possibilities.
+              Less routine work.
               <br />
-              Less busywork<span>.</span>
+              More time for you<span>.</span>
             </h1>
             <p>
-              Gluons gives small businesses reusable AI helpers that handle everyday work, keep
-              costs low, and leave every decision with the owner.
+              AI help for customer calls, orders, stock and everyday records. We help you get set up
+              around your business, and you review each action before it happens.
             </p>
             <div className="hero-buttons">
               <Button
@@ -75,7 +73,7 @@ export default function Landing() {
                   setBooking(true);
                 }}
               >
-                Book a free trial <ArrowRight size={17} />
+                Request a free trial <ArrowRight size={17} />
               </Button>
               <button className="watch-demo" onClick={() => setVideo(true)}>
                 <CirclePlay size={24} /> See it in action <span>· 30 sec</span>
@@ -92,7 +90,7 @@ export default function Landing() {
           </div>
           <div
             className="hero-art"
-            aria-label="Reusable components and expert sector packs combine into your business integration"
+            aria-label="Customer calls, stock alerts and draft replies brought together for the owner's approval"
           >
             <div className="hero-grid" />
             <span className="floating-label">
@@ -100,18 +98,18 @@ export default function Landing() {
             </span>
             <div className="hero-node node-phone">
               <Phone size={23} />
-              <span>Phone agent</span>
+              <span>Customer calls</span>
               <BadgeCheck />
             </div>
             <div className="hero-node node-stock">
               <Layers3 size={23} />
-              <span>Stock monitor</span>
+              <span>Stock alerts</span>
               <BadgeCheck />
             </div>
             <div className="hero-node node-ledger">
-              <Zap size={23} />
-              <span>EfficientAI</span>
-              <small>Right model. Smaller cost.</small>
+              <MessageSquare size={23} />
+              <span>Customer replies</span>
+              <small>Ready for your review.</small>
             </div>
             <div className="hero-hub">
               <span className="hero-logo-symbol">✳</span>
@@ -140,41 +138,41 @@ export default function Landing() {
             <span className="hero-star star-three">✦</span>
           </div>
         </section>
-        <section id="how-it-works" className="landing-section">
+        <section id="what-we-help-with" className="landing-section">
           <div className="landing-section-heading">
-            <div className="eyebrow">A SMALL CHANGE TO YOUR EVERYDAY</div>
+            <div className="eyebrow">HELP WITH THE WORK THAT FILLS YOUR DAY</div>
             <h2>
-              You run the business.
+              More time with customers.
               <br />
-              Let the little things connect.
+              Less time on the little things.
             </h2>
             <p>
               A customer calls. Stock gets low. A receipt comes in.
               <br />
-              Gluons brings the next step to you, ready for a decision.
+              See what needs attention and review the next step in one place.
             </p>
           </div>
           <div className="landing-feature-grid">
             <div>
-              <span className="feature-number">01 / REUSE</span>
-              <Layers3 size={30} />
-              <h3>Good tools, shared.</h3>
+              <span className="feature-number">CALLS, ORDERS & REPLIES</span>
+              <Phone size={30} />
+              <h3>Be there for your customers.</h3>
               <p>
-                Phone agents, order takers, stock monitors and more. Built as reusable blocks, so
-                each business starts ahead.
+                Capture what callers need, prepare orders from your menu or catalog, and review
+                answers to common customer questions.
               </p>
             </div>
             <div>
-              <span className="feature-number">02 / SPECIALIZE</span>
-              <Utensils size={30} />
-              <h3>Expert once. Easy after.</h3>
+              <span className="feature-number">STOCK, EXPENSES & UPDATES</span>
+              <ClipboardList size={30} />
+              <h3>Keep the everyday work in view.</h3>
               <p>
-                AI engineers and sector experts build the foundation. Setting up the next shop is
-                just filling in its details.
+                Check low-stock alerts, review prepared expense entries, and get a daily summary of
+                what needs your attention.
               </p>
             </div>
             <div>
-              <span className="feature-number">03 / APPROVE</span>
+              <span className="feature-number">YOU STAY IN CONTROL</span>
               <ShieldCheck size={30} />
               <h3>Your business. Your call.</h3>
               <p>
@@ -184,20 +182,61 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        <section id="built-to-reuse" className="landing-demo-section">
+        <section id="how-it-works" className="landing-section customer-start">
+          <div className="landing-section-heading">
+            <div className="eyebrow">GET STARTED WITH ONE EVERYDAY TASK</div>
+            <h2>
+              Tell us what takes your time.
+              <br />
+              We’ll help with the setup.
+            </h2>
+            <p>You don’t need to choose AI tools or connect everything yourself.</p>
+          </div>
+          <div className="landing-feature-grid">
+            <div>
+              <span className="feature-number">01 / YOUR BUSINESS</span>
+              <MessageSquare size={30} />
+              <h3>Start with your day.</h3>
+              <p>
+                Tell us which calls, orders or admin jobs take the most time. Choose the work you
+                want help with first.
+              </p>
+            </div>
+            <div>
+              <span className="feature-number">02 / SETUP SUPPORT</span>
+              <Settings2 size={30} />
+              <h3>Make it fit your work.</h3>
+              <p>
+                We help set up your business details, opening hours, menu or catalog, and stock
+                alerts. You review how it will work.
+              </p>
+            </div>
+            <div>
+              <span className="feature-number">03 / TRY & COMPARE</span>
+              <Clock3 size={30} />
+              <h3>Decide using your own numbers.</h3>
+              <p>
+                Try Gluons alongside your current process. Compare completed tasks, estimated time
+                returned and usage costs before deciding what comes next.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="your-trial" className="landing-demo-section">
           <div>
-            <div className="eyebrow">MEET YOUR NEW BREATHING ROOM</div>
+            <div className="eyebrow">SEE THE DIFFERENCE BEFORE YOU DECIDE</div>
             <h2>
               A clear view of
               <br />
               what’s working.
             </h2>
             <p>
-              See estimated hours returned, review pending actions, and follow every task’s model
-              and cost. Try it with a sample food business, then build your own integration.
+              Keep your current way of working during the trial. Review proposed actions and compare
+              the work completed, your review time and estimated savings. Explore the sample
+              dashboard to see what you’ll be able to check.
             </p>
             <Link href="/dashboard" className="button button-primary">
-              Explore the working prototype <ArrowRight size={16} />
+              Explore the sample dashboard <ArrowRight size={16} />
             </Link>
             <button className="text-link" onClick={() => setVideo(true)}>
               <CirclePlay size={16} /> Watch the demo walkthrough
@@ -217,7 +256,7 @@ export default function Landing() {
             <div className="mini-heading">
               More time for what matters<span>.</span>
             </div>
-            <p>The Morning Table · Estimated sample savings</p>
+            <p>Illustrative dashboard · Sample data, not a savings promise</p>
             <div className="mini-metrics">
               <div>
                 <small>Time given back</small>
@@ -226,16 +265,14 @@ export default function Landing() {
                 </strong>
               </div>
               <div>
-                <small>You’re in control</small>
+                <small>Ready for review</small>
                 <strong>
-                  100<span>%</span>
+                  5 <span>tasks</span>
                 </strong>
               </div>
               <div>
-                <small>Built to reuse</small>
-                <strong>
-                  6 <span>blocks</span>
-                </strong>
+                <small>Approval required</small>
+                <strong>Always</strong>
               </div>
             </div>
             <div className="mini-chart">
@@ -280,7 +317,7 @@ export default function Landing() {
           <p>
             Try Gluons alongside your business.
             <br />
-            See the difference before changing a thing.
+            See what it could give back to your day.
           </p>
           <Button
             onClick={() => {
@@ -288,7 +325,7 @@ export default function Landing() {
               setBooking(true);
             }}
           >
-            Book a free trial <ArrowRight size={17} />
+            Request a free trial <ArrowRight size={17} />
           </Button>
         </section>
       </main>
@@ -296,9 +333,7 @@ export default function Landing() {
         <Logo />
         <span>Built for the people who make business happen.</span>
         <div>
-          <a href="https://github.com/kowstav/gluons" target="_blank" rel="noreferrer">
-            GitHub <ArrowUpRight size={13} />
-          </a>
+          <a href="#how-it-works">How it works</a>
           <Link href="/dashboard">Open demo</Link>
         </div>
       </footer>
@@ -310,12 +345,9 @@ export default function Landing() {
         {done ? (
           <div className="booking-success">
             <ShieldCheck size={38} />
-            <p>
-              Your free trial request is saved. The Gluons team can use your details to follow up.
-            </p>
+            <p>Your free trial request is saved, along with your contact details for follow-up.</p>
             <small>
-              This prototype records requests. It does not send a confirmation email or reserve a
-              calendar appointment.
+              No appointment has been booked. This demo does not send a confirmation email.
             </small>
             <Button onClick={() => setBooking(false)}>Done</Button>
           </div>
@@ -378,7 +410,7 @@ export default function Landing() {
               <track kind="captions" src="/demo.vtt" srcLang="en" label="English" default />
             </video>
             <p className="muted">
-              A walkthrough of the working prototype using synthetic demo data.
+              A sample business walkthrough. The figures are illustrative, not promised results.
             </p>
             <Link href="/dashboard" className="button button-primary">
               Try it yourself <ArrowRight size={16} />

@@ -30,6 +30,7 @@ import {
 import { savings } from '@gluons/runtime/client';
 import type { PanelProps } from '@/lib/client';
 import { Badge, Button, Card, cost, money, relative } from './ui';
+import { serviceCopy } from '@/lib/service-copy';
 export function Overview({
   data,
   business,
@@ -46,6 +47,10 @@ export function Overview({
     (a) => a.businessId === business.id && a.status === 'pending',
   );
   const integration = data.state.integrations.find((i) => i.businessId === business.id);
+  const serviceName = (taskId: string) => {
+    const task = data.state.tasks.find((t) => t.id === taskId);
+    return task ? serviceCopy[task.componentId].name : 'Business task';
+  };
   const chart = Array.from({ length: Math.min(days, 18) }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - (Math.min(days, 18) - 1 - i));
@@ -151,7 +156,7 @@ export function Overview({
           <div className="metric-value">{money(stats.aiCost)}</div>
           <div className="metric-foot">
             <span className="green-text">
-              <ArrowDown size={13} /> Usage-based routing
+              <ArrowDown size={13} /> Usage for these tasks
             </span>
             <small>estimated token cost</small>
           </div>
@@ -259,15 +264,11 @@ export function Overview({
               <span className="orange-icon">
                 <Zap size={17} />
               </span>
-              <h2>Right task. Right model.</h2>
+              <h2>Your activity, made clear</h2>
             </div>
-            <Badge tone="green">EfficientAI</Badge>
+            <Badge tone="green">Usage</Badge>
           </div>
-          <p>
-            Big thinking when it’s needed.
-            <br />
-            Smaller costs for everything else.
-          </p>
+          <p>See how requests were handled and review the estimated AI usage cost.</p>
           <div className="routing-visual">
             <div className="routing-core">
               <Zap size={27} />
@@ -294,7 +295,11 @@ export function Overview({
               <div key={tier}>
                 <span className={`tier-dot tier-${tier}`} />
                 <span>
-                  {tier === 'cheap' ? 'Everyday' : tier === 'medium' ? 'Balanced' : 'Advanced'}
+                  {tier === 'cheap'
+                    ? 'Routine'
+                    : tier === 'medium'
+                      ? 'Additional review'
+                      : 'Complex'}
                 </span>
                 <strong>{tasks.length ? Math.round((count / tasks.length) * 100) : 0}%</strong>
               </div>
@@ -340,14 +345,7 @@ export function Overview({
                 <span className="preview-action-copy">
                   <strong>{action.summary}</strong>
                   <small>
-                    {
-                      data.components.find(
-                        (c) =>
-                          c.id ===
-                          data.state.tasks.find((t) => t.id === action.taskId)?.componentId,
-                      )?.name
-                    }{' '}
-                    <i>·</i> {relative(action.createdAt)}
+                    {serviceName(action.taskId)} <i>·</i> {relative(action.createdAt)}
                   </small>
                 </span>
                 <Badge tone={action.risk === 'medium' ? 'orange' : 'neutral'}>
@@ -360,33 +358,39 @@ export function Overview({
         </Card>
         <Card className="integration-summary">
           <div className="card-heading">
-            <h2>Connected, by design</h2>
+            <h2>Help for your day</h2>
             <span className="soft-icon">
               <Layers3 size={19} />
             </span>
           </div>
-          <p>One foundation. Built for your business.</p>
+          <p>
+            {integration?.componentIds.length ?? 0} services enabled for {business.name}.
+          </p>
           <div className="integration-chain">
-            <span className="chain-item">◈</span>
+            <span className="chain-item">
+              <Phone size={18} />
+            </span>
             <i />
-            <span className="chain-item orange">✳</span>
+            <span className="chain-item orange">
+              <PackageCheck size={18} />
+            </span>
             <i />
-            <span className="chain-item green">M</span>
+            <span className="chain-item green">
+              <Layers3 size={18} />
+            </span>
           </div>
           <div className="chain-labels">
-            <span>Core library</span>
-            <span>{business.sectorPackId === 'food-vendor' ? 'Food vendor' : 'Retail shop'}</span>
-            <span>Your setup</span>
+            <span>Customer calls</span>
+            <span>Orders</span>
+            <span>Stock alerts</span>
           </div>
           <div className="reuse-info">
-            <strong>
-              {integration?.componentIds.length ?? 0} of {integration?.componentIds.length ?? 0}
-            </strong>
-            <span>components reused from the library</span>
-            <Badge tone="green">100% reused</Badge>
+            <strong>Every action</strong>
+            <span>waits for your review</span>
+            <Badge tone="green">You’re in control</Badge>
           </div>
           <button className="text-link" onClick={() => navigate('library')}>
-            Meet your building blocks <ArrowRight size={15} />
+            View your services <ArrowRight size={15} />
           </button>
         </Card>
       </div>

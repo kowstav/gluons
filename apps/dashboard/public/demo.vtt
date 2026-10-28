@@ -4,7 +4,7 @@ WEBVTT
 Estimated savings, with owner review time included. All history shown is synthetic demo data.
 
 00:03.000 --> 00:06.000
-Start a task with a reusable component. The escalation example demonstrates a failed output check.
+Start with an everyday request, such as preparing a customer order from your menu.
 
 00:06.000 --> 00:09.000
 The proposed action stops in staging and waits for the owner's decision.
@@ -13,16 +13,16 @@ The proposed action stops in staging and waits for the owner's decision.
 The owner edits and approves. Trial mode records the result without performing the operation.
 
 00:12.000 --> 00:15.000
-EfficientAI shows both model attempts and their estimated token costs.
+Review how the request was handled and check the estimated AI usage cost.
 
 00:15.000 --> 00:18.000
-Six versioned components form a shared library. Sector packs add industry rules.
+Explore help with customer calls, orders, stock alerts, expense records and daily summaries.
 
 00:18.000 --> 00:21.000
-Choose a sector, switch on components and fill in the business setup.
+Choose the services you need and add your business details, catalog and preferences.
 
 00:21.000 --> 00:24.000
-A second business reuses the same components. Saved reuse counts increase to two.
+Your menu, opening hours and stock thresholds keep proposed actions relevant to your business.
 
 00:24.000 --> 00:27.000
 Compare estimated staff time with review time and AI cost. Export the trial report as a PDF.
