@@ -188,7 +188,7 @@ export function Activity({ data, business }: PanelProps) {
           </div>
         )}
       </Card>
-      <p className="table-caption">
+      <p className="activity-log-note">
         Showing {Math.min(tasks.length, 80)} of {tasks.length} matching tasks. Includes Jev and all
         completed model attempts. Prices are estimates using the {data.pricingDate} snapshot.
       </p>

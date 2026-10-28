@@ -2224,9 +2224,13 @@ h4 {
   font-size: 9px;
   white-space: nowrap;
 }
-.table-caption {
+.activity-log-note {
+  display: block;
+  width: 100%;
+  min-width: 0;
   font-size: 9px;
   color: #adbc9c;
+  line-height: 1.7;
   margin: 16px 0;
 }
 .task-detail > h3 {
