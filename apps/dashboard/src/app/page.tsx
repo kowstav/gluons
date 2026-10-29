@@ -38,6 +38,9 @@ export default function Landing() {
   }
   return (
     <div className="landing">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <nav className="landing-nav" aria-label="Website navigation">
         <Link href="/" aria-label="Gluons home">
           <Logo />
@@ -51,16 +54,16 @@ export default function Landing() {
           Open the demo <ArrowUpRight size={14} />
         </Link>
       </nav>
-      <main>
+      <main id="main">
         <section className="landing-hero">
           <div className="hero-copy">
             <div className="eyebrow">
-              <span className="tiny-spark">✳</span> A LITTLE AI. A LOT MORE TIME.
+              <span className="status-dot" /> A little AI. A lot more time.
             </div>
             <h1>
               Less routine work.
               <br />
-              More time for you<span>.</span>
+              More time for you.
             </h1>
             <p>
               AI help for customer calls, orders, stock and everyday records. We help you get set up
@@ -89,58 +92,81 @@ export default function Landing() {
             </div>
           </div>
           <div
-            className="hero-art"
-            aria-label="Customer calls, stock alerts and draft replies brought together for the owner's approval"
+            className="workday-preview"
+            role="img"
+            aria-label="Illustrative approval workflow: a customer asks for two burgers, Gluons prepares the order, and the owner reviews it before anything happens."
           >
-            <div className="hero-grid" />
-            <span className="floating-label">
-              <span className="status-dot" /> Your day, a little lighter.
-            </span>
-            <div className="hero-node node-phone">
-              <Phone size={23} />
-              <span>Customer calls</span>
-              <BadgeCheck />
-            </div>
-            <div className="hero-node node-stock">
-              <Layers3 size={23} />
-              <span>Stock alerts</span>
-              <BadgeCheck />
-            </div>
-            <div className="hero-node node-ledger">
-              <MessageSquare size={23} />
-              <span>Customer replies</span>
-              <small>Ready for your review.</small>
-            </div>
-            <div className="hero-hub">
-              <span className="hero-logo-symbol">✳</span>
-              <strong>gluons.</strong>
-            </div>
-            <div className="hero-owner">
-              <div className="owner-avatar">A</div>
+            <div className="workday-top">
               <div>
-                <strong>The Morning Table</strong>
+                <span className="preview-business-icon">M</span>
                 <span>
-                  <ShieldCheck size={12} /> Owner approved
+                  The Morning Table<small>Your workday, in one place</small>
                 </span>
               </div>
-              <Check size={19} />
+              <span className="preview-live">
+                <span className="status-dot" /> Trial
+              </span>
             </div>
-            <svg className="hero-connections" viewBox="0 0 550 500" fill="none" aria-hidden="true">
-              <path
-                d="M110 120C110 210 275 130 275 250M430 120C430 210 275 130 275 250M130 320C180 320 200 250 275 250M275 250V410"
-                stroke="#d9cbb6"
-                strokeWidth="2"
-                strokeDasharray="5 6"
-              />
-            </svg>
-            <span className="hero-star star-one">✴</span>
-            <span className="hero-star star-two">✳</span>
-            <span className="hero-star star-three">✦</span>
+            <div className="workday-body">
+              <div className="workday-heading">
+                <h2>Ready when you are.</h2>
+                <span>2 to review</span>
+              </div>
+              <div className="request-bubble">
+                <span className="request-icon">
+                  <Phone size={18} aria-hidden="true" />
+                </span>
+                <div>
+                  <small>Customer call</small>
+                  <p>“Two classic burgers for pickup, please.”</p>
+                </div>
+              </div>
+              <div className="preview-connector">
+                <span />
+                Order prepared for your review
+              </div>
+              <div className="order-preview">
+                <div className="order-preview-top">
+                  <span>
+                    <ClipboardList size={18} aria-hidden="true" /> New pickup order
+                  </span>
+                  <span className="preview-pending">Needs approval</span>
+                </div>
+                <div className="order-preview-item">
+                  <span>
+                    2 × Classic burger<small>Pickup · Today, 12:30 pm</small>
+                  </span>
+                  <strong>$19.00</strong>
+                </div>
+                <div className="preview-review">
+                  <span>
+                    <ShieldCheck size={17} aria-hidden="true" /> Your approval comes first
+                  </span>
+                  <span className="preview-review-button">
+                    Review order <ArrowRight size={15} aria-hidden="true" />
+                  </span>
+                </div>
+              </div>
+              <div className="stock-preview">
+                <span className="stock-preview-icon">
+                  <Layers3 size={19} aria-hidden="true" />
+                </span>
+                <div>
+                  <strong>Burger buns are running low</strong>
+                  <small>Stock alert ready for your review</small>
+                </div>
+                <ArrowUpRight size={17} aria-hidden="true" />
+              </div>
+            </div>
+            <div className="workday-foot">
+              <ShieldCheck size={15} aria-hidden="true" /> Nothing happens without your say.
+              <span>Sample workspace</span>
+            </div>
           </div>
         </section>
         <section id="what-we-help-with" className="landing-section">
           <div className="landing-section-heading">
-            <div className="eyebrow">HELP WITH THE WORK THAT FILLS YOUR DAY</div>
+            <div className="eyebrow">Built around your day</div>
             <h2>
               More time with customers.
               <br />
@@ -154,7 +180,7 @@ export default function Landing() {
           </div>
           <div className="landing-feature-grid">
             <div>
-              <span className="feature-number">CALLS, ORDERS & REPLIES</span>
+              <span className="feature-number">Calls, orders & replies</span>
               <Phone size={30} />
               <h3>Be there for your customers.</h3>
               <p>
@@ -163,7 +189,7 @@ export default function Landing() {
               </p>
             </div>
             <div>
-              <span className="feature-number">STOCK, EXPENSES & UPDATES</span>
+              <span className="feature-number">Stock, expenses & updates</span>
               <ClipboardList size={30} />
               <h3>Keep the everyday work in view.</h3>
               <p>
@@ -172,7 +198,7 @@ export default function Landing() {
               </p>
             </div>
             <div>
-              <span className="feature-number">YOU STAY IN CONTROL</span>
+              <span className="feature-number">You stay in control</span>
               <ShieldCheck size={30} />
               <h3>Your business. Your call.</h3>
               <p>
@@ -184,7 +210,7 @@ export default function Landing() {
         </section>
         <section id="how-it-works" className="landing-section customer-start">
           <div className="landing-section-heading">
-            <div className="eyebrow">GET STARTED WITH ONE EVERYDAY TASK</div>
+            <div className="eyebrow">From your first task onward</div>
             <h2>
               Tell us what takes your time.
               <br />
@@ -194,7 +220,7 @@ export default function Landing() {
           </div>
           <div className="landing-feature-grid">
             <div>
-              <span className="feature-number">01 / YOUR BUSINESS</span>
+              <span className="feature-number">01 / Your business</span>
               <MessageSquare size={30} />
               <h3>Start with your day.</h3>
               <p>
@@ -203,7 +229,7 @@ export default function Landing() {
               </p>
             </div>
             <div>
-              <span className="feature-number">02 / SETUP SUPPORT</span>
+              <span className="feature-number">02 / Setup support</span>
               <Settings2 size={30} />
               <h3>Make it fit your work.</h3>
               <p>
@@ -212,7 +238,7 @@ export default function Landing() {
               </p>
             </div>
             <div>
-              <span className="feature-number">03 / TRY & COMPARE</span>
+              <span className="feature-number">03 / Try & compare</span>
               <Clock3 size={30} />
               <h3>Decide using your own numbers.</h3>
               <p>
@@ -224,7 +250,7 @@ export default function Landing() {
         </section>
         <section id="your-trial" className="landing-demo-section">
           <div>
-            <div className="eyebrow">SEE THE DIFFERENCE BEFORE YOU DECIDE</div>
+            <div className="eyebrow">A trial you can measure</div>
             <h2>
               A clear view of
               <br />
@@ -279,8 +305,8 @@ export default function Landing() {
               <svg viewBox="0 0 500 130" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="miniFill" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#e77d51" stopOpacity=".35" />
-                    <stop offset="100%" stopColor="#e77d51" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#2855d9" stopOpacity=".2" />
+                    <stop offset="100%" stopColor="#2855d9" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 <path
@@ -289,7 +315,7 @@ export default function Landing() {
                 />
                 <path
                   d="M0 112C30 106 32 80 60 89S98 120 125 80S165 70 200 62S245 95 280 55S330 60 360 35S400 50 425 25S475 34 500 5"
-                  stroke="#dd784e"
+                  stroke="#2855d9"
                   strokeWidth="3"
                   fill="none"
                 />
@@ -307,8 +333,7 @@ export default function Landing() {
           </Link>
         </section>
         <section className="landing-cta">
-          <span className="cta-spark">✳</span>
-          <div className="eyebrow">SMALL TASKS. MORE POSSIBILITIES.</div>
+          <div className="eyebrow">Small tasks. More possibilities.</div>
           <h2>
             Make a little room
             <br />
@@ -360,7 +385,14 @@ export default function Landing() {
             </label>
             <label>
               Email address
-              <input name="email" type="email" required maxLength={180} autoComplete="email" />
+              <input
+                name="email"
+                type="email"
+                required
+                maxLength={180}
+                autoComplete="email"
+                spellCheck={false}
+              />
             </label>
             <label>
               Business name
@@ -419,12 +451,5 @@ export default function Landing() {
         )}
       </Dialog>
     </div>
-  );
-}
-function BadgeCheck() {
-  return (
-    <span className="node-check">
-      <Check size={12} />
-    </span>
   );
 }

@@ -2,6 +2,7 @@
 import {
   forwardRef,
   useEffect,
+  useId,
   useRef,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
@@ -53,6 +54,7 @@ export function Dialog({
   wide?: boolean;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
   useEffect(() => {
     if (open && !ref.current?.open) ref.current?.showModal();
     if (!open && ref.current?.open) ref.current?.close();
@@ -61,13 +63,14 @@ export function Dialog({
     <dialog
       ref={ref}
       className={cn('dialog', wide && 'dialog-wide')}
+      aria-labelledby={titleId}
       onCancel={onClose}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div className="dialog-heading">
-        <h2>{title}</h2>
+        <h2 id={titleId}>{title}</h2>
         <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close dialog">
           <X size={20} />
         </Button>

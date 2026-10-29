@@ -207,21 +207,21 @@ export function Overview({
               <AreaChart data={chart} margin={{ top: 10, right: 16, bottom: 0, left: -20 }}>
                 <defs>
                   <linearGradient id="savingsFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#e9794d" stopOpacity={0.24} />
-                    <stop offset="95%" stopColor="#e9794d" stopOpacity={0.01} />
+                    <stop offset="0%" stopColor="#2855d9" stopOpacity={0.18} />
+                    <stop offset="95%" stopColor="#2855d9" stopOpacity={0.01} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid vertical={false} stroke="#eaece7" strokeDasharray="3 5" />
+                <CartesianGrid vertical={false} stroke="#e1e7f0" strokeDasharray="3 5" />
                 <XAxis
                   dataKey="date"
-                  tick={{ fontSize: 11, fill: '#8b918d' }}
+                  tick={{ fontSize: 12, fill: '#53647c' }}
                   axisLine={false}
                   tickLine={false}
                   minTickGap={50}
                 />
                 <YAxis
                   tickFormatter={(n) => `$${n}`}
-                  tick={{ fontSize: 11, fill: '#8b918d' }}
+                  tick={{ fontSize: 12, fill: '#53647c' }}
                   axisLine={false}
                   tickLine={false}
                 />
@@ -235,14 +235,14 @@ export function Overview({
                 <Area
                   type="monotone"
                   dataKey="staff"
-                  stroke="#df754b"
+                  stroke="#2855d9"
                   strokeWidth={2.5}
                   fill="url(#savingsFill)"
                 />
                 <Area
                   type="monotone"
                   dataKey="ai"
-                  stroke="#648e70"
+                  stroke="#176b55"
                   strokeWidth={2}
                   fill="transparent"
                 />

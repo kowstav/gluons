@@ -131,7 +131,10 @@ export function Activity({ data, business }: PanelProps) {
                 role="button"
                 aria-label={`View task ${t.input}`}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') setSelected(t);
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelected(t);
+                  }
                 }}
               >
                 <td>
@@ -280,7 +283,7 @@ export function Report({ data, business, toast, navigate }: PanelProps) {
     try {
       const { jsPDF } = await import('jspdf');
       const pdf = new jsPDF();
-      pdf.setDrawColor('#df754b');
+      pdf.setDrawColor('#2855d9');
       pdf.setLineWidth(0.7);
       pdf.line(20, 12, 190, 12);
       let y = 22;
@@ -295,7 +298,7 @@ export function Report({ data, business, toast, navigate }: PanelProps) {
         pdf.text(lines, 20, y);
         y += lines.length * size * 0.4 + 2.5;
       };
-      pdf.setTextColor('#234237');
+      pdf.setTextColor('#172b4d');
       line('gluons. / Trial comparison', 25);
       line(business.name, 17);
       line(`Generated ${new Date().toISOString().slice(0, 10)} | Last ${range} days`);
@@ -346,7 +349,7 @@ export function Report({ data, business, toast, navigate }: PanelProps) {
         pdf.setPage(page);
         pdf.setFont('helvetica', 'normal');
         pdf.setFontSize(8);
-        pdf.setTextColor('#899088');
+        pdf.setTextColor('#53647c');
         pdf.text('Gluons | Estimated trial comparison', 20, 289);
         pdf.text(`${page} / ${pdf.getNumberOfPages()}`, 190, 289, { align: 'right' });
       }

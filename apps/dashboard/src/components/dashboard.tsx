@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowDownToLine,
   ArrowUpRight,
@@ -41,6 +41,7 @@ const navigation = [
   { id: 'report', name: 'Trial report', icon: FlaskConical },
 ];
 export default function Dashboard() {
+  const reducedMotion = useReducedMotion();
   const [data, setData] = useState<WorkspaceResponse | null>(null),
     [businessId, setBusinessId] = useState('business-morning-table'),
     [tab, setTab] = useState('overview'),
@@ -64,6 +65,18 @@ export default function Dashboard() {
   const toast = useCallback((message: string) => {
     setNotice(message);
   }, []);
+  useEffect(() => {
+    if (!mobile) return;
+    document.querySelector<HTMLButtonElement>('.mobile-close')?.focus();
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobile(false);
+        document.querySelector<HTMLButtonElement>('.mobile-menu')?.focus();
+      }
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [mobile]);
   useEffect(() => {
     refresh();
     const timer = setInterval(refresh, 5000);
@@ -109,7 +122,10 @@ export default function Dashboard() {
   const panel = data && business ? { data, business, refresh, toast, navigate } : null;
   return (
     <div className="app-shell">
-      <aside className={`sidebar ${mobile ? 'sidebar-open' : ''}`}>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <aside id="workspace-navigation" className={`sidebar ${mobile ? 'sidebar-open' : ''}`}>
         <Link href="/" className="brand-link">
           <Logo />
         </Link>
@@ -120,14 +136,13 @@ export default function Dashboard() {
         >
           <X />
         </button>
-        <div className="workspace-label">
-          WORKSPACE <span>01</span>
-        </div>
+        <div className="workspace-label">Your workspace</div>
         <nav aria-label="Main navigation">
           {navigation.map(({ id, name, icon: Icon }) => (
             <button
               key={id}
               className={`nav-item ${tab === id ? 'active' : ''}`}
+              aria-current={tab === id ? 'page' : undefined}
               onClick={() => navigate(id)}
             >
               <Icon size={18} />
@@ -194,6 +209,8 @@ export default function Dashboard() {
               className="mobile-menu"
               onClick={() => setMobile(true)}
               aria-label="Open navigation"
+              aria-expanded={mobile}
+              aria-controls="workspace-navigation"
             >
               <Menu size={21} />
             </Button>
@@ -271,38 +288,35 @@ export default function Dashboard() {
                     {error}
                   </div>
                 )}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${tab}-${business?.id}`}
-                    initial={{ opacity: 0, y: 7 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.18 }}
-                  >
-                    {tab === 'overview' ? (
-                      <Overview {...panel} onSimulate={() => setSimulate(true)} />
-                    ) : tab === 'approvals' ? (
-                      <Approvals {...panel} />
-                    ) : tab === 'activity' ? (
-                      <Activity {...panel} />
-                    ) : tab === 'library' ? (
-                      <Library {...panel} />
-                    ) : tab === 'builder' ? (
-                      <Builder
-                        initialPackId={builderPack}
-                        {...panel}
-                        onCreated={(id) => {
-                          setBusinessId(id);
-                          navigate('overview');
-                        }}
-                      />
-                    ) : tab === 'report' ? (
-                      <Report {...panel} />
-                    ) : (
-                      <SettingsPanel {...panel} />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
+                <motion.div
+                  key={`${tab}-${business?.id}`}
+                  initial={reducedMotion ? false : { opacity: 0, y: 7 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: reducedMotion ? 0 : 0.18 }}
+                >
+                  {tab === 'overview' ? (
+                    <Overview {...panel} onSimulate={() => setSimulate(true)} />
+                  ) : tab === 'approvals' ? (
+                    <Approvals {...panel} />
+                  ) : tab === 'activity' ? (
+                    <Activity {...panel} />
+                  ) : tab === 'library' ? (
+                    <Library {...panel} />
+                  ) : tab === 'builder' ? (
+                    <Builder
+                      initialPackId={builderPack}
+                      {...panel}
+                      onCreated={(id) => {
+                        setBusinessId(id);
+                        navigate('overview');
+                      }}
+                    />
+                  ) : tab === 'report' ? (
+                    <Report {...panel} />
+                  ) : (
+                    <SettingsPanel {...panel} />
+                  )}
+                </motion.div>
                 <footer className="workspace-footer">
                   <span>
                     <span className="logo-mini">✳</span> Small tasks. More possibilities.

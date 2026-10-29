@@ -23,6 +23,8 @@ npm run dev
 
 Open [the landing page](http://127.0.0.1:3000) or [the dashboard](http://127.0.0.1:3000/dashboard). The landing page includes a captioned 30-second walkthrough made from the real browser acceptance screenshots; it has no narration or external tracking.
 
+The interface uses self-hosted Manrope typography, a shared navy/blue palette, readable mobile layouts and keyboard-accessible controls. [Design guidance and GitHub skills used](docs/DESIGN.md) document the visual system and review process. The font's [Open Font License](apps/dashboard/public/fonts/Manrope-OFL.txt) is included with the site.
+
 The sample food business has 432 clearly labeled synthetic historical tasks. New tasks, approvals, settings, integrations, and trial requests persist in `apps/dashboard/.data/workspace.json`. Demo AI is deterministic and does not call a paid model. The local demo is a single-owner workspace on loopback.
 
 You can also open this repository in GitHub Codespaces using the included dev container. Codespaces is user-initiated and may have account charges; the prototype does not provision one automatically.

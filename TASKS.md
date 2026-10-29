@@ -11,5 +11,6 @@
 - [x] 9. Runtime tests, browser walkthrough, production build (25 tests + 4 production HTTP tests; phone and desktop acceptance; PDF render review)
 - [x] 10. Public GitHub repository and source push
 - [x] 11. Customer-facing copy audit: service outcomes, setup support, owner approval and measured trial value; updated customer screens, metadata and demo narrative
+- [x] 12. GitHub design-skill review and complete visual refresh: self-hosted typography, accessible palette, consistent spacing, real-workflow hero, responsive owner screens and keyboard improvements
 
 No provider account or domain credentials have been supplied. The prototype defaults to a clearly labeled, persistent local demo. Live adapters must be configured before they can make real calls.
