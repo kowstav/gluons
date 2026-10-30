@@ -60,4 +60,6 @@ See [research and repo decisions](research/2026-10-30-opportunities.md), [the da
 
 ## Verification
 
+Retrieved reply bodies, work-request bodies and job-sheet bodies are bound to the server's configured/parsed facts before staging. A model may assist assessment and summaries but cannot replace those bodies with an invented refund promise, confirmed booking or time-saving claim. Owner edits are still explicit owner decisions.
+
 `npm test` exercises real PDF.js extraction and Tesseract OCR, fixed-offset date parsing, CSV validation, stock thresholds, retrieval fallback, replay handling and approval/trial behavior. `npm run test:http` uses an isolated data file and a production server, including document → workflow → pending approval and a new field-service setup. GitHub CI also installs the pinned Python worker and runs invoice2data on positive and rejected examples. Tests use synthetic fixtures, not real customer data or paid services.

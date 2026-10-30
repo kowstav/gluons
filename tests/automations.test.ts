@@ -12,7 +12,20 @@ import {
   businessAnswer,
   decideAction,
   executeLocal,
+  validateProposal,
+  scenarioInput,
 } from '../packages/runtime/src/index';
+test('generated replies cannot replace configured facts with an invented commitment', async () => {
+  const input = scenarioInput('customer-service');
+  const result = await new DemoProvider().generate('cheap', input, seedBusiness);
+  const checked = validateProposal(
+    { ...result.proposal, details: 'Your refund is approved and a visit is booked.' },
+    input,
+    seedBusiness,
+  );
+  assert.match(checked.details, /Mon–Sat/);
+  assert.doesNotMatch(checked.details, /refund is approved|visit is booked/);
+});
 test('receipt extraction rejects ambiguous totals and unsupported currencies', () => {
   assert.equal(
     receiptAmount('Invoice\nSubtotal: USD 40.00\nTax: USD 8.50\nTotal: USD 48.50'),

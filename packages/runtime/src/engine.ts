@@ -62,7 +62,14 @@ export function validateProposal(
     }
   }
   // Extra generated fields are discarded to keep executable arguments allowlisted.
-  return { ...proposal, data: expected.data };
+  // Retrieved replies and parsed records remain authoritative; a model cannot
+  // replace them with invented promises, confirmed bookings or savings claims.
+  const grounded = ['send_reply', 'create_job', 'job_sheet'].includes(proposal.kind);
+  return {
+    ...proposal,
+    details: grounded ? expected.details : proposal.details,
+    data: expected.data,
+  };
 }
 export async function processTask(
   state: WorkspaceState,
