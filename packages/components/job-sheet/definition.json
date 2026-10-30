@@ -1,0 +1,36 @@
+{
+  "id": "job-sheet",
+  "version": "1.0.0",
+  "layer": "core",
+  "name": "Job-sheet summaries",
+  "description": "Check a job CSV and prepare a factual completed-work summary.",
+  "triggers": ["manual"],
+  "inputs": {
+    "business": "BusinessSetup",
+    "request": "TaskInput"
+  },
+  "outputs": {
+    "proposal": "ProposedAction"
+  },
+  "decisions": [
+    {
+      "id": "needs_human",
+      "engine": "jev",
+      "type": "yes_no",
+      "question": "Does this request need special owner attention?"
+    }
+  ],
+  "actions": [
+    {
+      "id": "job_sheet",
+      "risk": "medium",
+      "requires_approval": true
+    }
+  ],
+  "models": {
+    "default": "cheap",
+    "escalate_to": "frontier"
+  },
+  "human_minutes_per_task": 12,
+  "tests": "tests/handler.test.ts"
+}

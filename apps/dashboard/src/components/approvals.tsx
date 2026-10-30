@@ -14,6 +14,17 @@ import type { ProposedAction } from '@gluons/runtime';
 import { api, type PanelProps } from '@/lib/client';
 import { serviceCopy } from '@/lib/service-copy';
 import { Badge, Button, Card, cost, Dialog, relative } from './ui';
+function factValue(key: string, value: unknown, action: ProposedAction) {
+  if (key === 'requestedAt') {
+    if (!value) return 'Owner to confirm';
+    const offset = Number(action.data.timezoneOffsetMinutes ?? 0);
+    const shifted = new Date(new Date(String(value)).getTime() + offset * 60000);
+    const sign = offset < 0 ? '−' : '+';
+    return `${shifted.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' })} (UTC${sign}${String(Math.floor(Math.abs(offset) / 60)).padStart(2, '0')}:${String(Math.abs(offset) % 60).padStart(2, '0')}, unconfirmed)`;
+  }
+  if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+  return Array.isArray(value) ? value.join(', ') || 'None' : String(value);
+}
 export function Approvals({ data, business, refresh, toast, navigate }: PanelProps) {
   const [filter, setFilter] = useState('pending'),
     [query, setQuery] = useState(''),
@@ -158,13 +169,27 @@ export function Approvals({ data, business, refresh, toast, navigate }: PanelPro
               <p className="proposal-details">{action.details}</p>
               <div className="proposal-facts">
                 {Object.entries(action.data)
-                  .filter(([k]) => !['description', 'catalogItemId', 'stockItemId'].includes(k))
+                  .filter(
+                    ([k]) =>
+                      ![
+                        'description',
+                        'catalogItemId',
+                        'stockItemId',
+                        'timezoneOffsetMinutes',
+                        'request',
+                        'schedulingStatus',
+                      ].includes(k),
+                  )
                   .map(([key, value]) => (
                     <span key={key}>
-                      <small>{key.replaceAll(/([A-Z])/g, ' $1')}</small>
-                      <strong>
-                        {Array.isArray(value) ? value.join(', ') || 'None' : String(value)}
-                      </strong>
+                      <small>
+                        {key === 'requestedAt'
+                          ? 'Requested time'
+                          : key === 'urgent'
+                            ? 'Urgent concern'
+                            : key.replaceAll(/([A-Z])/g, ' $1')}
+                      </small>
+                      <strong>{factValue(key, value, action)}</strong>
                     </span>
                   ))}
               </div>

@@ -20,6 +20,8 @@ import { businessTypeCopy, serviceCopy } from '@/lib/service-copy';
 import { Badge, Button, Card } from './ui';
 
 const icons: Record<ComponentId, typeof Phone> = {
+  'job-intake': ShoppingBag,
+  'job-sheet': FileText,
   'phone-agent': Phone,
   'order-taker': ShoppingBag,
   'stock-monitor': Package,

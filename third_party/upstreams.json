@@ -1,0 +1,103 @@
+{
+  "checkedAt": "2026-10-30",
+  "method": "Pinned package releases, not vendored application forks. Integrity hashes: package-lock.json. Python versions: requirements.txt.",
+  "dependencies": [
+    {
+      "package": "chrono-node",
+      "version": "2.10.3",
+      "repository": "https://github.com/wanasit/chrono",
+      "license": "MIT",
+      "role": "date parsing",
+      "notice": "licenses/chrono-node.txt"
+    },
+    {
+      "package": "fuse.js",
+      "version": "7.5.0",
+      "repository": "https://github.com/krisk/Fuse",
+      "license": "Apache-2.0",
+      "role": "business fact and catalog retrieval",
+      "notice": "licenses/fuse.js.txt"
+    },
+    {
+      "package": "json-rules-engine",
+      "version": "7.3.1",
+      "repository": "https://github.com/CacheControl/json-rules-engine",
+      "license": "ISC",
+      "role": "stock thresholds",
+      "notice": "licenses/json-rules-engine.txt"
+    },
+    {
+      "package": "papaparse",
+      "version": "5.7.0",
+      "repository": "https://github.com/mholt/PapaParse",
+      "license": "MIT",
+      "role": "CSV stock and work-sheet import",
+      "notice": "licenses/papaparse.txt"
+    },
+    {
+      "package": "unpdf",
+      "version": "1.4.0",
+      "repository": "https://github.com/unjs/unpdf",
+      "license": "MIT",
+      "role": "PDF text extraction; embeds Mozilla PDF.js",
+      "notice": "licenses/unpdf.txt"
+    },
+    {
+      "package": "tesseract.js",
+      "version": "7.0.0",
+      "repository": "https://github.com/naptha/tesseract.js",
+      "license": "Apache-2.0",
+      "role": "image OCR",
+      "notice": "licenses/tesseract.js.txt"
+    },
+    {
+      "package": "tesseract.js-core",
+      "version": "7.0.0",
+      "repository": "https://github.com/naptha/tesseract.js-core",
+      "license": "Apache-2.0",
+      "role": "Tesseract WebAssembly engine",
+      "notice": "licenses/tesseract.js-core.txt"
+    },
+    {
+      "package": "@tesseract.js-data/eng",
+      "version": "1.0.0",
+      "repository": "https://github.com/naptha/tessdata",
+      "license": "MIT",
+      "role": "bundled English OCR data",
+      "notice": "licenses/english-language-data-Apache-2.0.txt",
+      "dataLicense": "Apache-2.0 per naptha/tessdata gh-pages/LICENSE; package metadata says MIT"
+    },
+    {
+      "package": "image-size",
+      "version": "2.0.4",
+      "repository": "https://github.com/image-size/image-size",
+      "license": "MIT",
+      "role": "image dimension validation",
+      "notice": "licenses/image-size.txt"
+    },
+    {
+      "package": "twilio",
+      "version": "5.13.1",
+      "repository": "https://github.com/twilio/twilio-node",
+      "license": "MIT",
+      "role": "existing approved communications adapter",
+      "notice": "licenses/twilio.txt"
+    },
+    {
+      "package": "ai",
+      "version": "7.0.155",
+      "repository": "https://github.com/vercel/ai",
+      "license": "Apache-2.0",
+      "role": "existing typed AI generation and decisions",
+      "notice": "licenses/ai.txt"
+    },
+    {
+      "package": "invoice2data",
+      "version": "1.0.1",
+      "repository": "https://github.com/invoice-x/invoice2data",
+      "license": "MIT",
+      "role": "Optional structured invoice extraction worker",
+      "notice": "licenses/invoice2data.txt"
+    }
+  ]
+}

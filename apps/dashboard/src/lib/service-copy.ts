@@ -2,6 +2,15 @@ import type { ComponentId } from '@gluons/runtime/client';
 
 // Customer language describes the work, rather than Gluons' implementation or delivery model.
 export const serviceCopy: Record<ComponentId, { name: string; description: string }> = {
+  'job-intake': {
+    name: 'Work requests',
+    description:
+      'Capture requested work and suggested times for your review. No booking or dispatch is confirmed.',
+  },
+  'job-sheet': {
+    name: 'Job-sheet summaries',
+    description: 'Prepare a factual summary from your completed and pending job records.',
+  },
   'phone-agent': {
     name: 'Customer calls',
     description: 'Capture what a caller needs and prepare an order or reply for your review.',
@@ -29,6 +38,22 @@ export const serviceCopy: Record<ComponentId, { name: string; description: strin
 };
 
 export const businessTypeCopy: Record<string, { name: string; description: string }> = {
+  'field-service': {
+    name: 'Field services',
+    description: 'Office help for trades, cleaning and landscaping teams.',
+  },
+  'property-maintenance': {
+    name: 'Property maintenance',
+    description: 'Help with repair enquiries and maintenance paperwork.',
+  },
+  'vehicle-repair': {
+    name: 'Vehicle repair',
+    description: 'Help with service enquiries, parts counts and job records.',
+  },
+  'small-fleet': {
+    name: 'Small fleets',
+    description: 'Help with transport enquiries, expense records and job summaries.',
+  },
   'food-vendor': {
     name: 'Food & drink',
     description: 'Help with menu orders, ingredients and customer questions.',

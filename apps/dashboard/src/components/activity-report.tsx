@@ -209,6 +209,19 @@ export function Activity({ data, business }: PanelProps) {
                 : 'Live AI Gateway'}
             </Badge>
             <h3>{selected.input}</h3>
+            {selected.preparation && (
+              <div className="callout">
+                <div>
+                  <strong>Source preparation: {selected.preparation.engines.join(', ')}</strong>
+                  <p>
+                    {selected.preparation.durationMs} ms of local parsing. AI usage below is tracked
+                    separately.
+                  </p>
+                  <p>{selected.preparation.warnings.join(' ')}</p>
+                  <small>Source SHA-256: {selected.preparation.sourceSha256}</small>
+                </div>
+              </div>
+            )}
             <div className="decision-detail">
               <span className="orange-icon">
                 <Zap size={19} />

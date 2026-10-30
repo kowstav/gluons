@@ -70,6 +70,7 @@ export async function processTask(
   provider: ModelProvider,
 ): Promise<Task> {
   const input = taskInputSchema.parse(raw);
+  if (input.componentId === 'job-intake') input.referenceTime ??= new Date().toISOString();
   const business = state.businesses.find((b) => b.id === input.businessId);
   if (!business) throw new DomainError('Business not found.', 404);
   const integration = state.integrations.find((i) => i.businessId === business.id);

@@ -1,0 +1,36 @@
+{
+  "id": "job-intake",
+  "version": "1.0.0",
+  "layer": "core",
+  "name": "Work requests",
+  "description": "Prepare a work request with an unconfirmed requested time for owner review.",
+  "triggers": ["manual"],
+  "inputs": {
+    "business": "BusinessSetup",
+    "request": "TaskInput"
+  },
+  "outputs": {
+    "proposal": "ProposedAction"
+  },
+  "decisions": [
+    {
+      "id": "needs_human",
+      "engine": "jev",
+      "type": "yes_no",
+      "question": "Does this request need special owner attention?"
+    }
+  ],
+  "actions": [
+    {
+      "id": "create_job",
+      "risk": "medium",
+      "requires_approval": true
+    }
+  ],
+  "models": {
+    "default": "cheap",
+    "escalate_to": "frontier"
+  },
+  "human_minutes_per_task": 6,
+  "tests": "tests/handler.test.ts"
+}

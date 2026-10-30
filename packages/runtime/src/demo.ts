@@ -5,8 +5,9 @@ export class DemoProvider implements ModelProvider {
   name = 'demo' as const;
   async decide(input: TaskInput) {
     const hard =
-      /allerg|refund|complaint|bulk|cater|unusual/i.test(input.transcript) ||
-      (input.quantity ?? 0) > 20;
+      /allerg|refund|complaint|bulk|cater|unusual|gas\s*(?:leak|smell)|fire|sparking|flood|brake.*fail/i.test(
+        input.transcript,
+      ) || (input.quantity ?? 0) > 20;
     const moderate = /combo|change|multiple|substitut/i.test(input.transcript);
     return {
       difficulty: hard ? ('hard' as const) : moderate ? ('moderate' as const) : ('easy' as const),

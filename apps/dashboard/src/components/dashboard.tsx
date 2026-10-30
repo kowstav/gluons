@@ -22,7 +22,13 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { components, scenarioInput, type Business, type ComponentId } from '@gluons/runtime/client';
+import {
+  components,
+  sectorPacks,
+  scenarioInput,
+  type Business,
+  type ComponentId,
+} from '@gluons/runtime/client';
 import { api, browserSupabase, type PanelProps, type WorkspaceResponse } from '@/lib/client';
 import { Badge, Button, Dialog, Logo } from './ui';
 import { Overview } from './overview';
@@ -31,12 +37,14 @@ import { Builder } from './library-builder';
 import { Library } from './service-library';
 import { serviceCopy } from '@/lib/service-copy';
 import { Activity, Report, SettingsPanel } from './activity-report';
+import { Workflows } from './workflows';
 
 const navigation = [
   { id: 'overview', name: 'Overview', icon: LayoutDashboard },
   { id: 'approvals', name: 'Approval queue', icon: ListChecks },
   { id: 'activity', name: 'Activity & usage', icon: Zap },
   { id: 'library', name: 'Services', icon: BookOpen },
+  { id: 'workflows', name: 'Workflows', icon: Sparkles },
   { id: 'builder', name: 'Business setup', icon: Workflow },
   { id: 'report', name: 'Trial report', icon: FlaskConical },
 ];
@@ -102,7 +110,7 @@ export default function Dashboard() {
     const q = new URLSearchParams(window.location.search).get('tab');
     if (navigation.some((n) => n.id === q)) setTab(q!);
     const pack = new URLSearchParams(window.location.search).get('pack');
-    if (pack === 'retail-shop' || pack === 'food-vendor') setBuilderPack(pack);
+    if (pack && sectorPacks.some((p) => p.id === pack)) setBuilderPack(pack);
   }, []);
   const navigate = (id: string, packId?: string) => {
     if (packId) setBuilderPack(packId);
@@ -302,6 +310,8 @@ export default function Dashboard() {
                     <Activity {...panel} />
                   ) : tab === 'library' ? (
                     <Library {...panel} />
+                  ) : tab === 'workflows' ? (
+                    <Workflows {...panel} />
                   ) : tab === 'builder' ? (
                     <Builder
                       initialPackId={builderPack}

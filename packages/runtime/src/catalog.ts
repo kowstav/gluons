@@ -7,8 +7,23 @@ import support from '../../components/customer-service/definition.json';
 import report from '../../components/daily-report/definition.json';
 import food from '../../sector-packs/food-vendor/pack.json';
 import retail from '../../sector-packs/retail-shop/pack.json';
-export const components = [phone, orders, stock, ledger, support, report] as ComponentDefinition[];
-export const sectorPacks = [food, retail] as SectorPack[];
+import jobs from '../../components/job-intake/definition.json';
+import sheets from '../../components/job-sheet/definition.json';
+import field from '../../sector-packs/field-service/pack.json';
+import property from '../../sector-packs/property-maintenance/pack.json';
+import repair from '../../sector-packs/vehicle-repair/pack.json';
+import fleet from '../../sector-packs/small-fleet/pack.json';
+export const components = [
+  phone,
+  orders,
+  stock,
+  ledger,
+  support,
+  report,
+  jobs,
+  sheets,
+] as ComponentDefinition[];
+export const sectorPacks = [food, retail, field, property, repair, fleet] as SectorPack[];
 export const models = {
   cheap: { id: 'anthropic/claude-haiku-5.5', name: 'Claude Haiku 5.5', input: 0.1, output: 0.5 },
   medium: { id: 'anthropic/claude-sonnet-5.5', name: 'Claude Sonnet 5.5', input: 2, output: 10 },

@@ -31,6 +31,8 @@ You can also open this repository in GitHub Codespaces using the included dev co
 
 ## What works
 
+New: [six document and operations workflows](docs/AUTOMATIONS.md), four additional business setups (field services, property maintenance, vehicle repair and small fleets), and eight exported Agent Skills. See the [October 2026 opportunity research and repository decisions](docs/research/2026-10-30-opportunities.md) and [third-party provenance](third_party/NOTICE.md). Sector rules remain prototypes pending practitioner validation.
+
 - **Savings overview:** estimated net staff hours, equivalent time value, AI cost, approval rate, date filtering, and daily chart.
 - **Approval queue:** automatic refresh, search, approve, reject, edit notes, change order quantity with trusted repricing, change ledger amount, and an audit record of original content and reviewer identity.
 - **Activity & usage:** a request history with checks, extra reviews, AI used and estimated usage costs. Detailed records retain model attempts for transparency; demo decisions are labeled as simulations.
@@ -38,7 +40,8 @@ You can also open this repository in GitHub Codespaces using the included dev co
 - **Business setup:** business-type selection, service choices, business details, catalog, stock thresholds, per-item ingredient/SKU consumption mapping, baseline costs, review, and trial start. Newly created businesses start with an empty task history.
 - **Trial report:** before/after comparison, review-time allowance, separate trial/live outcome counts, transparent assumptions and a downloadable multipage PDF.
 - **Landing page:** working demo link, captioned demo walkthrough and a durable free-trial request form. Requests are saved; the prototype does not send email or schedule appointments.
-- **Agent Skills export:** six `SKILL.md` folders with component definitions and prompts.
+- **Agent Skills export:** eight `SKILL.md` folders with component definitions and prompts.
+- **Document/workflow intake:** text PDF extraction, optional local image OCR and invoice2data, stock CSV checks, job-sheet summaries, date suggestions, configured-answer retrieval and catalog matching. Every result enters the owner approval flow.
 - **Live adapter code:** Supabase auth, owner-scoped storage, transactional projections and Realtime; AI SDK 7 + Jev/Gateway; authenticated Vapi intake; signed Twilio WhatsApp intake and owner-approved delivery; scheduled daily reports and low-stock alerts; Langfuse ingestion.
 
 Live service credentials, a purchased telephone number, provider account setup, hosting and domain ownership are **not included**. Those services have not been exercised against a real account in this build. See [setup](docs/SETUP.md) for the exact configuration.

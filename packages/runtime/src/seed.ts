@@ -81,6 +81,19 @@ export function scenarioInput(
         trigger: 'whatsapp_message',
         transcript: 'Hello! What time do you close today?',
       };
+    case 'job-intake':
+      return {
+        ...base,
+        transcript:
+          'Please visit tomorrow at 10 am to inspect the leaking tap. Confirm availability first.',
+        referenceTime: '2026-10-30T08:00:00.000Z',
+        timezoneOffsetMinutes: 0,
+      };
+    case 'job-sheet':
+      return {
+        ...base,
+        transcript: 'job,minutes,status\nvisit-101,45,completed\nvisit-102,30,pending',
+      };
     default:
       return {
         ...base,
@@ -100,8 +113,14 @@ export async function createSeed(): Promise<WorkspaceState> {
         id: 'integration-morning-table',
         businessId: business.id,
         sectorPackId: business.sectorPackId,
-        componentIds: components.map((c) => c.id),
-        versions: Object.fromEntries(components.map((c) => [c.id, c.version])),
+        componentIds: components
+          .filter((c) => c.id !== 'job-intake' && c.id !== 'job-sheet')
+          .map((c) => c.id),
+        versions: Object.fromEntries(
+          components
+            .filter((c) => c.id !== 'job-intake' && c.id !== 'job-sheet')
+            .map((c) => [c.id, c.version]),
+        ),
         status: 'active',
         createdAt: business.createdAt,
       },
@@ -114,7 +133,8 @@ export async function createSeed(): Promise<WorkspaceState> {
   };
   const demo = new DemoProvider();
   for (let i = 0; i < 432; i++) {
-    const component = components[i % components.length];
+    const historical = components.filter((c) => c.id !== 'job-intake' && c.id !== 'job-sheet');
+    const component = historical[i % historical.length];
     const input = scenarioInput(component.id, business);
     const decision = await demo.decide(input);
     const tier = i % 17 === 0 ? 'frontier' : i % 9 === 0 ? 'medium' : 'cheap';

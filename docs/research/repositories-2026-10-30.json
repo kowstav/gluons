@@ -1,0 +1,146 @@
+[
+  {
+    "repo": "invoice-x/invoice2data",
+    "license": "MIT",
+    "archived": false,
+    "pushed": "2026-10-27T19:18:02Z",
+    "stars": 2241,
+    "branch": "master"
+  },
+  {
+    "repo": "CacheControl/json-rules-engine",
+    "license": "ISC",
+    "archived": false,
+    "pushed": "2026-02-16T21:57:04Z",
+    "stars": 3145,
+    "branch": "master"
+  },
+  {
+    "repo": "wanasit/chrono",
+    "license": "MIT",
+    "archived": false,
+    "pushed": "2026-10-12T01:11:44Z",
+    "stars": 5296,
+    "branch": "master"
+  },
+  {
+    "repo": "krisk/Fuse",
+    "license": "Apache-2.0",
+    "archived": false,
+    "pushed": "2026-08-09T04:40:41Z",
+    "stars": 20515,
+    "branch": "main"
+  },
+  {
+    "repo": "mozilla/pdf.js",
+    "license": "Apache-2.0",
+    "archived": false,
+    "pushed": "2026-10-30T00:24:23Z",
+    "stars": 54061,
+    "branch": "master"
+  },
+  {
+    "repo": "naptha/tesseract.js",
+    "license": "Apache-2.0",
+    "archived": false,
+    "pushed": "2026-05-17T04:19:12Z",
+    "stars": 38799,
+    "branch": "master"
+  },
+  {
+    "repo": "activepieces/activepieces",
+    "license": "NOASSERTION",
+    "archived": false,
+    "pushed": "2026-10-30T07:48:12Z",
+    "stars": 25291,
+    "branch": "main"
+  },
+  {
+    "repo": "n8n-io/n8n",
+    "license": "NOASSERTION",
+    "archived": false,
+    "pushed": "2026-10-30T07:49:45Z",
+    "stars": 209079,
+    "branch": "master"
+  },
+  {
+    "repo": "frappe/erpnext",
+    "license": "GPL-3.0",
+    "archived": false,
+    "pushed": "2026-10-30T07:48:53Z",
+    "stars": 40759,
+    "branch": "develop"
+  },
+  {
+    "repo": "pipecat-ai/pipecat",
+    "license": "BSD-2-Clause",
+    "archived": false,
+    "pushed": "2026-10-29T12:37:06Z",
+    "stars": 16933,
+    "branch": "main"
+  },
+  {
+    "repo": "firecrawl/firecrawl",
+    "license": "AGPL-3.0",
+    "archived": false,
+    "pushed": "2026-10-30T07:15:58Z",
+    "stars": 196848,
+    "branch": "main"
+  },
+  {
+    "repo": "jhuckaby/Cronicle",
+    "license": "NOASSERTION",
+    "archived": false,
+    "pushed": "2026-10-28T21:23:09Z",
+    "stars": 5867,
+    "branch": "master"
+  },
+  {
+    "repo": "unjs/unpdf",
+    "license": "MIT",
+    "archived": false,
+    "pushed": "2026-10-30T07:21:58Z",
+    "stars": 1256,
+    "branch": "main"
+  },
+  {
+    "repo": "mholt/PapaParse",
+    "license": "MIT",
+    "archived": false,
+    "pushed": "2026-10-27T16:53:10Z",
+    "stars": 13591,
+    "branch": "master"
+  },
+  {
+    "repo": "twilio/twilio-node",
+    "license": "MIT",
+    "archived": false,
+    "pushed": "2026-10-27T09:33:39Z",
+    "stars": 1545,
+    "branch": "main"
+  },
+  {
+    "repo": "vercel/ai",
+    "license": "NOASSERTION",
+    "archived": false,
+    "pushed": "2026-10-30T03:02:20Z",
+    "stars": 27621,
+    "branch": "main"
+  },
+  {
+    "repo": "tesseract-ocr/tessdata",
+    "license": "Apache-2.0",
+    "archived": false,
+    "pushed": "2024-03-09T10:04:28Z",
+    "stars": 7686,
+    "branch": "main"
+  },
+  {
+    "repo": "VapiAI/server-sdk-typescript",
+    "license": null,
+    "archived": false,
+    "pushed": "2026-10-28T23:54:23Z",
+    "stars": 123,
+    "branch": "main"
+  }
+]

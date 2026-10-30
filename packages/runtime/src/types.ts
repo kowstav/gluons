@@ -7,6 +7,8 @@ export const componentIds = [
   'ledger',
   'customer-service',
   'daily-report',
+  'job-intake',
+  'job-sheet',
 ] as const;
 export type ComponentId = (typeof componentIds)[number];
 export type Tier = 'cheap' | 'medium' | 'frontier';
@@ -119,9 +121,18 @@ export interface Task {
   provider: 'demo' | 'gateway';
   eventId?: string;
   error?: string;
+  preparation?: { engines: string[]; sourceSha256: string; durationMs: number; warnings: string[] };
 }
 export const proposalSchema = z.object({
-  kind: z.enum(['create_order', 'stock_alert', 'ledger_entry', 'send_reply', 'daily_report']),
+  kind: z.enum([
+    'create_order',
+    'stock_alert',
+    'ledger_entry',
+    'send_reply',
+    'daily_report',
+    'create_job',
+    'job_sheet',
+  ]),
   summary: z.string().min(5).max(180),
   details: z.string().min(5).max(3000),
   data: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.array(z.string())])),
@@ -201,6 +212,8 @@ export const taskInputSchema = z.object({
     .optional(),
   eventId: z.string().max(180).optional(),
   forceEscalation: z.boolean().optional(),
+  timezoneOffsetMinutes: z.number().int().min(-840).max(840).optional(),
+  referenceTime: z.string().datetime().optional(),
 });
 export type TaskInput = z.infer<typeof taskInputSchema>;
 export interface ModelProvider {

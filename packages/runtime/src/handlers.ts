@@ -5,6 +5,8 @@ import { ledger } from '../../components/ledger/handler';
 import { customerService } from '../../components/customer-service/handler';
 import { phoneAgent } from '../../components/phone-agent/handler';
 import { dailyReport } from '../../components/daily-report/handler';
+import { jobIntake } from '../../components/job-intake/handler';
+import { jobSheet } from '../../components/job-sheet/handler';
 export const handlers: Record<ComponentId, (input: TaskInput, business: Business) => Proposal> = {
   'order-taker': orderTaker,
   'stock-monitor': stockMonitor,
@@ -12,4 +14,6 @@ export const handlers: Record<ComponentId, (input: TaskInput, business: Business
   'customer-service': customerService,
   'phone-agent': phoneAgent,
   'daily-report': dailyReport,
+  'job-intake': jobIntake,
+  'job-sheet': jobSheet,
 };

@@ -13,7 +13,9 @@ import { apiError, body, sameOrigin } from '@/lib/server/http';
 const schema = z.object({
   name: z.string().trim().min(2).max(100),
   ownerName: z.string().trim().min(2).max(100),
-  sectorPackId: z.enum(['food-vendor', 'retail-shop']),
+  sectorPackId: z
+    .string()
+    .refine((id) => sectorPacks.some((p) => p.id === id), 'Choose a supported business type.'),
   componentIds: z.array(z.enum(componentIds)).min(1),
   phone: z.string().max(30),
   hours: z.string().min(3).max(120),

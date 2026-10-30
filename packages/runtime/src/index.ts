@@ -4,3 +4,6 @@ export * from './engine';
 export * from './demo';
 export * from './seed';
 export * from './savings';
+export * from './automation';
+export * from './workflows';
+export * from './pdf';

@@ -1,0 +1,20 @@
+{
+  "id": "field-service",
+  "name": "Field services",
+  "version": "1.0.0",
+  "description": "Trades, cleaning and landscaping administration.",
+  "uses": ["phone-agent", "customer-service", "ledger", "daily-report", "job-intake", "job-sheet"],
+  "schemas": {
+    "catalog": "ServiceCatalog"
+  },
+  "rules": [
+    "Never diagnose faults or automate physical work. Requested times are unconfirmed. Safety hazards need immediate owner attention.",
+    "All actions require owner approval. Trial actions do not execute.",
+    "Catalog prices are configured by the owner; never invent estimates."
+  ],
+  "built_by": {
+    "ai_expert": "Gluons reference implementation",
+    "sector_expert": "Research-led prototype; practitioner validation pending"
+  },
+  "color": "blue"
+}

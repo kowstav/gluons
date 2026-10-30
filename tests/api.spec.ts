@@ -1,4 +1,95 @@
 import { test, expect } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
+test('document API runs real PDF extraction and local OCR in production', async ({ request }) => {
+  for (const [name, mimeType] of [
+    ['invoice.pdf', 'application/pdf'],
+    ['invoice.png', 'image/png'],
+  ]) {
+    const response = await request.post('/api/documents', {
+      multipart: {
+        purpose: 'receipt',
+        file: { name, mimeType, buffer: await readFile(`tests/fixtures/${name}`) },
+      },
+    });
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.amount).toBe(48.5);
+    expect(data.text).toContain('48.50');
+  }
+});
+test('document intake reads a real invoice and workflows stage rather than execute it', async ({
+  request,
+}) => {
+  const state = await (await request.get('/api/workspace')).json();
+  const doc = await request.post('/api/documents', {
+    multipart: {
+      purpose: 'receipt',
+      file: {
+        name: 'invoice.txt',
+        mimeType: 'text/plain',
+        buffer: Buffer.from('Invoice: GL-100\nDate: 2026-10-30\nTotal: USD 48.50'),
+      },
+    },
+  });
+  expect(doc.ok()).toBeTruthy();
+  const parsed = await doc.json();
+  expect(parsed.amount).toBe(48.5);
+  const input = {
+    businessId: state.state.businesses[0].id,
+    workflow: 'receipt',
+    text: parsed.text,
+    eventId: `invoice-http-${Date.now()}`,
+  };
+  const response = await request.post('/api/workflows', { data: input });
+  expect(response.status()).toBe(201);
+  const result = await response.json();
+  expect(result.tasks[0].status).toBe('staged');
+  expect(result.tasks[0].preparation.sourceSha256).toHaveLength(64);
+  const after = await (await request.get('/api/workspace')).json();
+  const action = after.state.actions.find(
+    (a: { taskId: string }) => a.taskId === result.tasks[0].id,
+  );
+  expect(action.status).toBe('pending');
+  const replay = await (await request.post('/api/workflows', { data: input })).json();
+  expect(replay.tasks[0].id).toBe(result.tasks[0].id);
+});
+test('new sector setup enables work requests and produces an unconfirmed approval proposal', async ({
+  request,
+}) => {
+  const created = await request.post('/api/integrations', {
+    data: {
+      name: 'Example Field Team',
+      ownerName: 'Demo Owner',
+      sectorPackId: 'field-service',
+      componentIds: ['job-intake', 'job-sheet', 'ledger'],
+      phone: '+12025550142',
+      hours: 'Mon-Fri 9-5',
+      monthlyStaffCost: 3200,
+      monthlyStaffHours: 208,
+      catalog: [{ id: 'visit', name: 'Site visit', price: 50 }],
+      stock: [],
+    },
+  });
+  expect(created.status()).toBe(201);
+  const { business } = await created.json();
+  const staged = await request.post('/api/workflows', {
+    data: {
+      businessId: business.id,
+      workflow: 'job_request',
+      text: 'Please visit tomorrow at 10 am',
+      timezoneOffsetMinutes: 330,
+      eventId: `visit-${Date.now()}`,
+    },
+  });
+  expect(staged.status()).toBe(201);
+  const { tasks } = await staged.json();
+  expect(tasks[0].status).toBe('staged');
+  const state = await (await request.get('/api/workspace')).json();
+  const action = state.state.actions.find((a: { taskId: string }) => a.taskId === tasks[0].id);
+  expect(action.kind).toBe('create_job');
+  expect(action.data.schedulingStatus).toContain('Unconfirmed');
+  expect(action.status).toBe('pending');
+});
 test('public marketing and demo captions keep internal delivery strategy out of customer copy', async ({
   request,
 }) => {

@@ -27,6 +27,8 @@ import { api, type PanelProps } from '@/lib/client';
 import { businessTypeCopy, serviceCopy } from '@/lib/service-copy';
 import { Badge, Button, Card, money } from './ui';
 const icons: Record<string, typeof Phone> = {
+  'job-intake': Workflow,
+  'job-sheet': FileText,
   'phone-agent': Phone,
   'order-taker': ShoppingBag,
   'stock-monitor': Package,
@@ -262,7 +264,7 @@ export function Builder({
                 </div>
               </Card>
               <div className="section-label">
-                <h2>{packId === 'food-vendor' ? 'The menu' : 'Product catalog'}</h2>
+                <h2>{packId === 'food-vendor' ? 'The menu' : 'Products & services'}</h2>
                 <Button
                   type="button"
                   size="sm"

@@ -1,0 +1,28 @@
+{
+  "id": "vehicle-repair",
+  "name": "Vehicle repair",
+  "version": "1.0.0",
+  "description": "Capture service enquiries, parts counts and work-sheet summaries.",
+  "uses": [
+    "phone-agent",
+    "customer-service",
+    "ledger",
+    "daily-report",
+    "job-intake",
+    "job-sheet",
+    "stock-monitor"
+  ],
+  "schemas": {
+    "catalog": "ServiceCatalog"
+  },
+  "rules": [
+    "Never diagnose a vehicle or declare it roadworthy. No repair authorization or parts purchase without owner approval.",
+    "All actions require owner approval. Trial actions do not execute.",
+    "Catalog prices are configured by the owner; never invent estimates."
+  ],
+  "built_by": {
+    "ai_expert": "Gluons reference implementation",
+    "sector_expert": "Research-led prototype; practitioner validation pending"
+  },
+  "color": "blue"
+}

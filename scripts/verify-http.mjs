@@ -11,6 +11,7 @@ const env = {
   ...process.env,
   GLUONS_ALLOW_LOCAL_DEMO: 'true',
   GLUONS_AI_MODE: 'demo',
+  GLUONS_OCR_ENABLED: 'true',
   GLUONS_DATA_PATH: path.join(folder, 'workspace.json'),
   NEXT_PUBLIC_SUPABASE_URL: '',
   NEXT_PUBLIC_SUPABASE_ANON_KEY: '',

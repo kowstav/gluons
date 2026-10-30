@@ -859,6 +859,13 @@ input:disabled {
   color: var(--ink);
   font-size: 14px;
 }
+.proposal-facts > span {
+  min-width: 0;
+  max-width: 100%;
+}
+.proposal-facts strong {
+  overflow-wrap: anywhere;
+}
 .approval-card-bottom {
   gap: 16px;
   padding-top: 20px;
@@ -1434,6 +1441,114 @@ input:disabled {
 }
 .login-card > p {
   font-size: 15px;
+}
+
+.workflow-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.7fr) minmax(0, 1.4fr);
+  align-items: start;
+  gap: 24px;
+}
+.workflow-mobile-select {
+  display: none;
+}
+.workflow-choices {
+  display: grid;
+  gap: 12px;
+}
+.workflow-choice {
+  text-align: left;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white;
+}
+.workflow-choice.chosen {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.workflow-choice strong {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+}
+.workflow-choice span {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.7;
+}
+.workflow-choice small {
+  display: block;
+  font-size: 12px;
+  color: var(--warning);
+  margin-top: 12px;
+}
+.workflow-editor {
+  padding: 28px;
+}
+.workflow-editor > p {
+  font-size: 14px;
+  margin: 12px 0 24px;
+}
+.workflow-upload {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+  border: 1px dashed #b4c5e5;
+  border-radius: 10px;
+  background: #f7f9ff;
+}
+.workflow-upload span {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.workflow-upload input {
+  max-width: 100%;
+  font-size: 13px;
+  background: white;
+}
+.workflow-editor small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.task-detail .callout {
+  overflow-wrap: anywhere;
+  margin-top: 20px;
+}
+@media (max-width: 1000px) {
+  .workflow-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workflow-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .workflow-mobile-select {
+    display: grid;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .workflow-choices {
+    display: none;
+  }
+  .workflow-choices {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workflow-editor {
+    padding: 22px 18px;
+  }
+  .workflow-upload {
+    padding: 16px;
+  }
 }
 
 /* Marketing: one concrete view of a lighter workday, with the owner at its centre. */
